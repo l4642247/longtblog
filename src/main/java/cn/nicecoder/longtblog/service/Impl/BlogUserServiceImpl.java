@@ -7,6 +7,9 @@ import cn.nicecoder.longtblog.service.BlogUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 /**
  * @Author: longt
  * @Date: 2019/3/29 15:50
@@ -28,6 +31,16 @@ public class BlogUserServiceImpl implements BlogUserService {
 
     @Override
     public BlogUser userInfo(Long id) {
-        return blogUserDao.getOne(id);
+        BlogUser user  = null;
+        //在空的Optional实例上调用get()，抛出NoSuchElementException
+        if(blogUserDao.findById(id) != null && blogUserDao.findById(id).isPresent()){
+            user = blogUserDao.findById(id).get();
+        }
+        return user;
+    }
+
+    @Override
+    public List<BlogUser> AllUserInfo() {
+        return blogUserDao.findAll();
     }
 }

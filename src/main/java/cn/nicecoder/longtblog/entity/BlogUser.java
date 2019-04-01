@@ -48,4 +48,12 @@ public class BlogUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public BlogUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public BlogUser() {
+    }
 }
