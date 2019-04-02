@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
-        return articleDao.findAll(querySpeci, PageRequest.of(pageNumber, pageSize, Sort.Direction.DESC, "keywords"));
+        return articleDao.findAll(querySpeci, PageRequest.of(pageNumber, pageSize, Sort.Direction.DESC, "createTime"));
     }
 
     @Override
