@@ -1,5 +1,6 @@
 package cn.nicecoder.longtblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -12,6 +13,12 @@ import java.util.Date;
  */
 @Entity
 public class Article {
+    /**
+     *     @Id
+     *     @Column(name = "ID")
+     *     @GenericGenerator(name = "idGenerator", strategy = "uuid")
+     *     @GeneratedValue(generator = "idGenerator") //可在ID上面加上ID生成策略
+     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +28,6 @@ public class Article {
     private String author;
     private String content;
     private Long   click;
-    private String catalog;
     private String status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -31,6 +37,12 @@ public class Article {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+
+
+    @ManyToOne()
+    @JoinColumn(name = "catalog_id")
+    @JsonBackReference
+    private Catalog catalog;
 
 
     public Long getId() {
@@ -69,20 +81,20 @@ public class Article {
         this.click = click;
     }
 
-    public String getCatalog() {
-        return catalog;
-    }
-
-    public void setCatalog(String catalog) {
-        this.catalog = catalog;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Catalog getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
     }
 
     public Date getCreateTime() {
@@ -111,12 +123,11 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String author, String content, Long click, String catalog, String status, Date createTime, Date updateTime) {
+    public Article(String title, String author, String content, Long click, Catalog catalog, String status, Date createTime, Date updateTime) {
         this.title = title;
         this.author = author;
         this.content = content;
         this.click = click;
-        this.catalog = catalog;
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;

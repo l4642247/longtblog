@@ -1,0 +1,40 @@
+package cn.nicecoder.longtblog.service;
+
+import cn.nicecoder.longtblog.entity.Catalog;
+import org.springframework.data.domain.Page;
+
+public interface CatalogService {
+
+    /**
+     * 查询类别
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public Page<Catalog> CatalogPage(int pageNumber, int pageSize);
+
+    /**
+     * 创建
+     * @param catalog
+     * @return
+     */
+    public Catalog catalogCreate(Catalog catalog);
+
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void deleteCatalog(Long id);
+
+
+    /**
+     * 查询
+     * @param catalog
+     * @return
+     */
+    public Catalog findById(Long id);
+
+
+
+}
