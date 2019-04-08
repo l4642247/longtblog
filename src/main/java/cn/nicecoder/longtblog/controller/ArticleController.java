@@ -1,7 +1,9 @@
 package cn.nicecoder.longtblog.controller;
 
 import cn.nicecoder.longtblog.entity.Article;
+import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.service.ArticleService;
+import cn.nicecoder.longtblog.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
@@ -19,13 +21,19 @@ import java.util.Date;
 public class ArticleController {
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CatalogService catalogService;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public Article create(@RequestParam(value = "title",required = true) String title,
                           @RequestParam(value = "content",required = true) String content,
-                          @RequestParam(value = "catalog",required = true) String catalog,
+                          @RequestParam(value = "catalog",required = true) Long catalogId,
                           @RequestParam(value = "status",required = true) String status){
-        Article art = new Article(title, "longt", content, 0l, catalog, status, new Date(), new Date());
+        Catalog catalog = catalogService.findById(catalogId);
+        Article art = new Article(title, "longt", content, 0l, null, status, new Date(), new Date());
+        //建立双向连接，顺序很重要
+        catalog.getArticleList().add(art);
+        art.setCatalog(catalog);
         return articleService.articleCreate(art);
     }
 
