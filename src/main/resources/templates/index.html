@@ -165,11 +165,6 @@
                                                 <li>English</li>
                                                 <li>Franch</li>
                                                 <li>Greek</li>
-                                                <div ng-app="" ng-init="firstName='John'">
-
-                                                    <p>姓名为 <span ng-bind="firstName"></span></p>
-
-                                                </div>
                                             </ul>
                                         </div>
                                     </div>
@@ -186,9 +181,6 @@
                                                 <li>字数</li>
                                                 <li>收获喜欢</li>
                                             </ul>
-                                            <div ng-app="">
-                                                <p>我的第一个表达式： {{ 5 + 5 }}</p>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- Languages -->
@@ -373,10 +365,6 @@
     <!-- End Right content here -->
     <!-- ============================================================== -->
 
-
-
-
-
 </div>
 <!-- END wrapper -->
 
@@ -391,20 +379,8 @@
 <script src="../assets/js/wow.min.js"></script>
 <script src="../assets/js/jquery.nicescroll.js"></script>
 <script src="../assets/js/jquery.scrollTo.min.js"></script>
-<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
-
 
 <script>
-
-        var app = angular.module('myApp', []);
-        app.controller('siteCtrl', function($scope, $http) {
-            $http.post("/article/search")
-                .success(function (response) {
-                    alert(1);
-                    $scope.articles = response.content;
-                    alert(1);
-                });
-        });
 
 </script>
 

@@ -44,7 +44,6 @@ public class Article {
     @JsonBackReference
     private Catalog catalog;
 
-
     public Long getId() {
         return id;
     }

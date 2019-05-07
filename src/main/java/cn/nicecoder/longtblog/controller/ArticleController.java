@@ -28,7 +28,7 @@ public class ArticleController {
     public Article create(@RequestParam(value = "title",required = true) String title,
                           @RequestParam(value = "content",required = true) String content,
                           @RequestParam(value = "catalog",required = true) Long catalogId,
-                          @RequestParam(value = "status",required = true) String status){
+                          @RequestParam(value = "status",required = false, defaultValue = "0") String status){
         Catalog catalog = catalogService.findById(catalogId);
         Article art = new Article(title, "longt", content, 0l, null, status, new Date(), new Date());
         //建立双向连接，顺序很重要
