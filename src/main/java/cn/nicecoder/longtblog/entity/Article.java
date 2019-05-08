@@ -26,6 +26,10 @@ public class Article {
 
     private String title;
     private String author;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name="content", columnDefinition="BLOB", nullable=true)
     private String content;
     private Long   click;
     private String status;
@@ -112,9 +116,6 @@ public class Article {
         this.updateTime = updateTime;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name=" content", columnDefinition="CLOB", nullable=true)
     public String getContent() {
         return content;
     }

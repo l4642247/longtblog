@@ -348,18 +348,19 @@
                                     <div class="panel-heading"><h3 class="panel-title">Summernote Editor</h3></div>
                                     <div class="panel-body">
                                         <form role="form" action="../article/create" method="post">
+                                            <input type="hidden" name="id" th:value="${article.id}">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                                <label class="col-md-2 control-label">Text</label>
+                                                <input th:value="${article.title}" name="title" class="form-control"  placeholder="Something">
                                             </div>
                                             <div class="form-group" id="catalogList">
-                                                <label for="exampleInputEmail1">Email address</label>
+                                                <label class="col-md-2 control-label">Text</label>
                                                 <select class="form-control" name="catalog">
                                                     <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="summernote" name="content">Hello Summernote</textarea>
+                                                <textarea th:utext="${article.content}" class="summernote" name="content">Hello Summernote</textarea>
                                             </div>
                                             <button type="submit" class="btn btn-purple waves-effect waves-light">Submit</button>
                                         </form>
@@ -525,10 +526,29 @@
         <script>
             jQuery(document).ready(function(){
                 $('.summernote').summernote({
-                    height: 200,                 // set editor height
+                    height: 600,                 // set editor height
                     minHeight: null,             // set minimum height of editor
                     maxHeight: null,             // set maximum height of editor
-                    focus: true                 // set focus to editable area after initializing summernote
+                    focus: true,                // set focus to editable area after initializing summernote
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            //上传图片到服务器
+                            alert(0)
+                            var formData = new FormData();
+                            formData.append('file',files[0]);
+                            $.ajax({
+                                url : 'http://www.nicecoder.cn/imageupload/imageUpload',//后台文件上传接口
+                                type : 'POST',
+                                data : formData,
+                                processData : false,
+                                contentType : false,
+                                success : function(result) {
+                                    var jResult = JSON.parse(result);
+                                    $('#summernote').summernote('insertImage',jResult.data.src,'img');
+                                }
+                            });
+                        }
+                    }
                 });
             });
         </script>

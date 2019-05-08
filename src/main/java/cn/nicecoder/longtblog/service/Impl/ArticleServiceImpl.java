@@ -2,13 +2,11 @@ package cn.nicecoder.longtblog.service.Impl;
 
 import cn.nicecoder.longtblog.Dao.ArticleDao;
 import cn.nicecoder.longtblog.entity.Article;
-import cn.nicecoder.longtblog.entity.BlogUser;
 import cn.nicecoder.longtblog.service.ArticleService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

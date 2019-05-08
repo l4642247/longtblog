@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,15 +37,20 @@ public class PageController {
         return new ModelAndView("admin/index");
     }
 
-    @RequestMapping(value = "/admin/articleEdit", method = RequestMethod.GET)
-    public ModelAndView articleEdit(){
-        Page<Catalog> list = catalogService.CatalogPage(0,20);
+    @RequestMapping(value = "/admin/article-edit", method = RequestMethod.GET)
+    public ModelAndView articleEdit(@RequestParam(value = "id",required = false) Long id){
         ModelAndView mv = new ModelAndView("admin/article-editor");
+        Article article = new Article();
+        if(id != null) {
+            article = articleService.articleDetail(id);
+        }
+        mv.addObject("article", article);
+        Page<Catalog> list = catalogService.CatalogPage(0,20);
         mv.addObject("catalogList",list.getContent());
         return mv;
     }
 
-    @RequestMapping(value = "/admin/articleTable", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/article-table", method = RequestMethod.GET)
     public ModelAndView articleTable(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
                                      @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                                      @RequestParam(value = "title",required = false) String title,
