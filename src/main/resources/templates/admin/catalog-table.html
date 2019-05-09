@@ -7,14 +7,10 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+        <link rel="shortcut icon" href="../assets/images/favicon_1.ico">
 
         <title>Moltran - Responsive Admin Dashboard Template</title>
         
-        <!--bootstrap-wysihtml5-->
-        <link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css">
-        <link href="../assets/plugins/summernote/dist/summernote.css" rel="stylesheet">
-
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css">
@@ -155,7 +151,7 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                            <img src="../assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
@@ -230,13 +226,13 @@
                             </li>
                             
                             <li class="has_sub">
-                                <a href="#" class="waves-effect waves-light active"><i class="md md-now-widgets"></i><span> Forms </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class="waves-effect waves-light"><i class="md md-now-widgets"></i><span> Forms </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="form-elements.html">General Elements</a></li>
                                     <li><a href="form-validation.html">Form Validation</a></li>
                                     <li><a href="form-advanced.html">Advanced Form</a></li>
                                     <li><a href="form-wizard.html">Form Wizard</a></li>
-                                    <li class="active"><a href="form-editor.html">WYSIWYG Editor</a></li>
+                                    <li><a href="form-editor.html">WYSIWYG Editor</a></li>
                                     <li><a href="code-editor.html">Code Editors</a></li>
                                     <li><a href="form-uploads.html">Multiple File Upload</a></li>
                                     <li><a href="form-xeditable.html">X-editable</a></li>
@@ -244,9 +240,9 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect waves-light"><i class="md md-view-list"></i><span> Data Tables </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class="waves-effect waves-light active"><i class="md md-view-list"></i><span> Data Tables </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="tables.html">Basic Tables</a></li>
+                                    <li class="active"><a href="tables.html">Basic Tables</a></li>
                                     <li><a href="table-datatable.html">Data Table</a></li>
                                     <li><a href="tables-editable.html">Editable Table</a></li>
                                     <li><a href="responsive-table.html">Responsive Table</a></li>
@@ -317,7 +313,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!-- Left Sidebar End --> 
+            <!-- Left Sidebar End -->
 
 
 
@@ -332,44 +328,67 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Editors</h4>
+                                <h4 class="pull-left page-title">Basic Tables</h4>
                                 <ol class="breadcrumb pull-right">
                                     <li><a href="#">Moltran</a></li>
-                                    <li><a href="#">Forms</a></li>
-                                    <li class="active">Editors</li>
+                                    <li><a href="#">Data Tables</a></li>
+                                    <li class="active">Basic Tables</li>
                                 </ol>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-md-12">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><h3 class="panel-title">Summernote Editor</h3></div>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Striped rows Table</h3>
+                                    </div>
+
+
+
                                     <div class="panel-body">
-                                        <form role="form" action="../article/create" method="post">
-                                            <input type="hidden" name="id" th:value="${article.id}">
+                                        <form class="form-inline" role="form" method="get" action="../catalog/create">
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Text</label>
-                                                <input th:value="${article.title}" name="title" class="form-control"  placeholder="Something">
+                                                <label class="sr-only">add</label>
+                                                <input name="name" class="form-control"  placeholder="Enter name">
                                             </div>
-                                            <div class="form-group" id="catalogList">
-                                                <label class="col-md-2 control-label">Text</label>
-                                                <select class="select2 form-control" name="catalog">
-                                                    <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea th:utext="${article.content}" class="summernote" name="content">Hello Summernote</textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-purple waves-effect waves-light">Submit</button>
+                                            <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">Sign in</button>
                                         </form>
 
-
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>name</th>
+                                                            <th>desc</th>
+                                                            <th>count</th>
+                                                            <th>option</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="catalog:${catalogList}">
+                                                            <td th:text="${catalog.sort}"></td>
+                                                            <td th:text="${catalog.name}"></td>
+                                                            <td th:text="${catalog.des}"></td>
+                                                            <td th:text="${catalog.count}"></td>
+                                                            <td>
+                                                                <a th:href="@{'../admin/catalog-edit?id='+${catalog.id}}" >.modify</a>
+                                                                <a th:href="@{'../catalog/catalog-delete?id='+${catalog.id}}" >.delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- End row -->
+                        </div> <!-- End Row -->
+
+
 
                     </div> <!-- container -->
                                
@@ -393,7 +412,7 @@
                         <li class="list-group-item">
                             <a href="#">
                                 <div class="avatar">
-                                    <img src="assets/images/users/avatar-1.jpg" alt="">
+                                    <img src="../assets/images/users/avatar-1.jpg" alt="">
                                 </div>
                                 <span class="name">Chadengle</span>
                                 <i class="fa fa-circle online"></i>
@@ -490,7 +509,7 @@
                             </a>
                             <span class="clearfix"></span>
                         </li>
-                    </ul>
+                    </ul>  
                 </div>
             </div>
             <!-- /Right-bar -->
@@ -498,12 +517,12 @@
 
         </div>
         <!-- END wrapper -->
-
+    
         <script>
             var resizefunc = [];
         </script>
 
-        <!-- Main  -->
+        <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
         <script src="../assets/js/detect.js"></script>
@@ -516,42 +535,6 @@
         <script src="../assets/js/jquery.scrollTo.min.js"></script>
 
         <script src="../assets/js/jquery.app.js"></script>
-
-        <script type="text/javascript" src="../assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-        <script type="text/javascript" src="../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-
-        <!--form validation init-->
-        <script src="../assets/plugins/summernote/dist/summernote.min.js"></script>
-
-        <script>
-            jQuery(document).ready(function(){
-                $('.summernote').summernote({
-                    height: 600,                 // set editor height
-                    minHeight: null,             // set minimum height of editor
-                    maxHeight: null,             // set maximum height of editor
-                    focus: true,                // set focus to editable area after initializing summernote
-                    callbacks: {
-                        onImageUpload: function(files) {
-                            //上传图片到服务器
-                            var formData = new FormData();
-                            formData.append('file',files[0]);
-                            $.ajax({
-                                url : 'http://www.nicecoder.cn/imageupload/imageUpload',//后台文件上传接口
-                                type : 'POST',
-                                data : formData,
-                                processData : false,
-                                contentType : false,
-                                success : function(result) {
-                                    var jResult = JSON.parse(result);
-                                    $('.summernote').summernote('insertImage',jResult.data.src);
-                                }
-                            });
-                        }
-                    }
-                });
-            });
-        </script>
-
 	
 	</body>
 </html>

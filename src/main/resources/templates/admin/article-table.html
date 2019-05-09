@@ -358,6 +358,7 @@
                                                     <tr>
                                                         <th>id</th>
                                                         <th>title</th>
+                                                        <th>catalog</th>
                                                         <th>click</th>
                                                         <th>updatetime</th>
                                                         <th>option</th>
@@ -368,6 +369,7 @@
                                                     <tr th:each="artitle:${articleList}">
                                                         <td th:text="${artitle.id}"></td>
                                                         <td th:text="${artitle.title}"></td>
+                                                        <td th:text="${artitle.catalog.name}"></td>
                                                         <td th:text="${artitle.click}"></td>
                                                         <td th:text="${artitle.updateTime}"></td>
                                                         <td ><a th:href="@{'article-edit?id='+${artitle.id}}" >.modify</a></td>

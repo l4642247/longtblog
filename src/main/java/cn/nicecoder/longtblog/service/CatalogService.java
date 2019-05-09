@@ -11,7 +11,7 @@ public interface CatalogService {
      * @param pageSize
      * @return
      */
-    public Page<Catalog> CatalogPage(int pageNumber, int pageSize);
+    public Page<Catalog> catalogPage(int pageNumber, int pageSize);
 
     /**
      * 创建

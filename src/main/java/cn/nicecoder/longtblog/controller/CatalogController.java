@@ -16,19 +16,30 @@ public class CatalogController {
     CatalogService catalogService;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    @ResponseBody
-    public Catalog create(@RequestParam(value = "name",required = true) String name,
+    public ModelAndView create(@RequestParam(value = "name",required = true) String name,
                           @RequestParam(value = "sort",required = false) Long sort,
                           @RequestParam(value = "id",required = false) Long id,
                           @RequestParam(value = "des",required = false) String des){
         Catalog catalog = new Catalog(name, 0l, sort, des);
-        return catalogService.catalogCreate(catalog);
+        if(id !=null){
+            catalog.setId(id);
+        }
+        catalogService.catalogCreate(catalog);
+        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table");
+        return mv;
     }
 
     @RequestMapping(value="/page", method = RequestMethod.GET)
     @ResponseBody
     public Page<Catalog> page(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
                               @RequestParam(value = "pagesize",defaultValue = "5") int pageSize){
-        return catalogService.CatalogPage(pageNumber, pageSize);
+        return catalogService.catalogPage(pageNumber, pageSize);
+    }
+
+    @RequestMapping(value = "/catalog-delete", method = RequestMethod.GET)
+    public ModelAndView delete(@RequestParam(value = "id",required = true) Long id){
+        catalogService.deleteCatalog(id);
+        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table");
+        return mv;
     }
 }

@@ -1,5 +1,7 @@
 package cn.nicecoder.longtblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.List;
 

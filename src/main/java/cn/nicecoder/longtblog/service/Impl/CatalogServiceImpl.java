@@ -22,7 +22,7 @@ public class CatalogServiceImpl implements CatalogService {
     CatalogDao catalogDao;
 
     @Override
-    public Page<Catalog> CatalogPage(int pageNumber, int pageSize) {
+    public Page<Catalog> catalogPage(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "sort");
         return catalogDao.findAll(pageable);
     }
