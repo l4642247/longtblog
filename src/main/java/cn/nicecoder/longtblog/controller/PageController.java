@@ -2,6 +2,7 @@ package cn.nicecoder.longtblog.controller;
 
 import cn.nicecoder.longtblog.entity.Article;
 import cn.nicecoder.longtblog.entity.Catalog;
+import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import cn.nicecoder.longtblog.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Set;
 
 /**
  * @Author: longt
@@ -80,6 +83,12 @@ public class PageController {
             article = articleService.articleDetail(id);
         }
         mv.addObject("article", article);
+        Set<Tag> tagSet= article.getTags();
+        String tags = "";
+        for(Tag t : tagSet){
+            tags += t.getName() +",";
+        }
+        mv.addObject("tags",tags);
         Page<Catalog> list = catalogService.catalogPage(0,20);
         mv.addObject("catalogList",list.getContent());
         return mv;

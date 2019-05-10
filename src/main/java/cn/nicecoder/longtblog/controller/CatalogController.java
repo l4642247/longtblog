@@ -25,7 +25,7 @@ public class CatalogController {
             catalog.setId(id);
         }
         catalogService.catalogCreate(catalog);
-        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table");
+        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table.html");
         return mv;
     }
 
@@ -39,7 +39,7 @@ public class CatalogController {
     @RequestMapping(value = "/catalog-delete", method = RequestMethod.GET)
     public ModelAndView delete(@RequestParam(value = "id",required = true) Long id){
         catalogService.deleteCatalog(id);
-        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table");
+        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table.html");
         return mv;
     }
 }

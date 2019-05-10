@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author: longt
@@ -26,6 +28,7 @@ public class Article {
 
     private String title;
     private String author;
+    private String summary;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -47,6 +50,20 @@ public class Article {
     @JoinColumn(name = "catalog_id")
     @JsonBackReference
     private Catalog catalog;
+
+    //关系维护端，负责多对多关系的绑定和解除
+    //@JoinTable注解的name属性指定关联表的名字，joinColumns指定外键的名字，关联到关系维护端(Article)
+    //inverseJoinColumns指定外键的名字，要关联的关系被维护端(tag)
+    //其实可以不使用@JoinTable注解，默认生成的关联表名称为主表表名+下划线+从表表名，
+    //即表名为article_tag
+    //关联到主表的外键名：主表名+下划线+主表中的主键列名,即article_id
+    //关联到从表的外键名：主表中用于关联的属性名+下划线+从表的主键列名,即tag_id
+    //主表就是关系维护端对应的表，从表就是关系被维护端对应的表
+    @ManyToMany
+    @JoinTable(name="article_tag",joinColumns=@JoinColumn(name="article_id"),
+            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    private Set<Tag> tags = new HashSet<Tag>();
+
 
     public Long getId() {
         return id;
@@ -100,6 +117,21 @@ public class Article {
         this.catalog = catalog;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Article() {
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -116,14 +148,16 @@ public class Article {
         this.updateTime = updateTime;
     }
 
-    public String getContent() {
-        return content;
+    public Set<Tag> getTags() {
+        return tags;
     }
 
-    public Article() {
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
-    public Article(String title, String author, String content, Long click, Catalog catalog, String status, Date createTime, Date updateTime) {
+    public Article(String title, String summary, String author, String content, Long click, String status, Date createTime, Date updateTime) {
+        this.summary = summary;
         this.title = title;
         this.author = author;
         this.content = content;
