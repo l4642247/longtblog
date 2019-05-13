@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -52,7 +53,6 @@ public class ArticleController {
         }
         //建立双向连接，顺序很重要
         //关联类别
-        catalog.getArticleList().add(art);
         art.setCatalog(catalog);
         Article article= articleService.articleCreate(art);
 
@@ -89,6 +89,12 @@ public class ArticleController {
     @ResponseBody
     public Article detail(@PathVariable Long id){
         return articleService.articleDetail(id);
+    }
+
+    @RequestMapping(value = "/near/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Article> nearlyArt(@PathVariable Long id){
+        return articleService.articleNearly(id);
     }
 
 }

@@ -25,7 +25,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Page<Tag> tagPage(int pageNumber, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "sort");
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "name");
         return tagDao.findAll(pageable);
     }
 
@@ -47,5 +47,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag findByName(String name) {
         return tagDao.findByName(name);
+    }
+
+    @Override
+    public List<Tag> findTagsById(Long artId) {
+        return tagDao.findByArtId(artId);
     }
 }

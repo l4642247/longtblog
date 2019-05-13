@@ -1,6 +1,6 @@
 package cn.nicecoder.longtblog.service;
 
-import cn.nicecoder.longtblog.entity.BlogUser;
+import cn.nicecoder.longtblog.entity.User;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ public interface BlogUserService {
     boolean login(String username, String password);
 
     //查询用户详情
-    BlogUser userInfo(Long id);
+    User userInfo(String id);
 
     //查询所有
-    List<BlogUser> AllUserInfo();
+    List<User> AllUserInfo();
 }

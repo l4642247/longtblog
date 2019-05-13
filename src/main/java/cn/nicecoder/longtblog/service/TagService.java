@@ -45,5 +45,10 @@ public interface TagService {
      */
     public Tag findByName(String name);
 
-
+    /**
+     * 查询
+     * @param artId
+     * @return
+     */
+    public List<Tag> findTagsById(Long  artId);
 }

@@ -1,13 +1,12 @@
 package cn.nicecoder.longtblog.service.Impl;
 
 import cn.hutool.crypto.SecureUtil;
-import cn.nicecoder.longtblog.Dao.BlogUserDao;
-import cn.nicecoder.longtblog.entity.BlogUser;
+import cn.nicecoder.longtblog.Dao.UserDao;
+import cn.nicecoder.longtblog.entity.User;
 import cn.nicecoder.longtblog.service.BlogUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,11 +17,11 @@ import java.util.List;
 @Service
 public class BlogUserServiceImpl implements BlogUserService {
     @Autowired
-    BlogUserDao blogUserDao;
+    UserDao blogUserDao;
 
     @Override
     public boolean login(String username, String password) {
-        BlogUser user = blogUserDao.findByUsername(username);
+        User user = blogUserDao.findByUsername(username);
         if(user != null && SecureUtil.md5(password).equals(user.getPassword())){
             return true;
         }
@@ -30,8 +29,8 @@ public class BlogUserServiceImpl implements BlogUserService {
     }
 
     @Override
-    public BlogUser userInfo(Long id) {
-        BlogUser user  = null;
+    public User userInfo(String id) {
+        User user  = null;
         //在空的Optional实例上调用get()，抛出NoSuchElementException
         if(blogUserDao.findById(id) != null && blogUserDao.findById(id).isPresent()){
             user = blogUserDao.findById(id).get();
@@ -40,7 +39,7 @@ public class BlogUserServiceImpl implements BlogUserService {
     }
 
     @Override
-    public List<BlogUser> AllUserInfo() {
+    public List<User> AllUserInfo() {
         return blogUserDao.findAll();
     }
 }

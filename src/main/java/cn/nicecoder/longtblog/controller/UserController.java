@@ -1,6 +1,6 @@
 package cn.nicecoder.longtblog.controller;
 
-import cn.nicecoder.longtblog.entity.BlogUser;
+import cn.nicecoder.longtblog.entity.User;
 import cn.nicecoder.longtblog.service.BlogUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,27 +14,27 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/blogUser")
-public class BlogUserController {
-    private static final Logger logger = Logger.getLogger(BlogUserController.class);
+@RequestMapping("/user")
+public class UserController {
+    private static final Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
-    BlogUserService blogUserService;
+    BlogUserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestParam(value = "username",required = true) String username,
                          @RequestParam(value = "password",required = true) String password){
-        return blogUserService.login(username, password);
+        return userService.login(username, password);
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-    public BlogUser info(@PathVariable Long id){
-        BlogUser blogUser = blogUserService.userInfo(id);
-        return blogUser;
+    public User info(@PathVariable String id){
+        User user = userService.userInfo(id);
+        return user;
     }
 
     @RequestMapping(value = "/info/all", method = RequestMethod.GET)
-    public List<BlogUser> infoAll(){
-        return blogUserService.AllUserInfo();
+    public List<User> infoAll(){
+        return userService.AllUserInfo();
     }
 }

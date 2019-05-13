@@ -1,7 +1,5 @@
 package cn.nicecoder.longtblog.entity;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,8 +19,9 @@ public class Catalog {
     private Long   sort;
     private String des;
 
-    @OneToMany(mappedBy = "catalog", cascade = CascadeType.PERSIST)
-    private List<Article> articleList;
+    //如果不需要根据Catalog级联查询Article，可以注释掉
+    /*@OneToMany(mappedBy = "catalog")
+    private List<Article> articleList;*/
 
     public Long getId() {
         return id;
@@ -62,15 +61,6 @@ public class Catalog {
 
     public void setDes(String des) {
         this.des = des;
-    }
-
-
-    public List<Article> getArticleList() {
-        return articleList;
-    }
-
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
     }
 
     public Catalog() {

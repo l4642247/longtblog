@@ -5,6 +5,8 @@ import cn.nicecoder.longtblog.entity.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 
 public interface ArticleService {
     /**
@@ -33,4 +35,12 @@ public interface ArticleService {
      * @return
      */
     public Article articleDetail(Long id);
+
+
+    /**
+     * 上下文章
+     * @param id
+     * @return
+     */
+    public List<Article> articleNearly(Long id);
 }

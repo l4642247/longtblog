@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,5 +68,21 @@ public class ArticleServiceImpl implements ArticleService {
             article = articleDao.findById(id).get();
         }
         return article;
+    }
+
+    @Override
+    public List<Article> articleNearly(Long id) {
+        List<Article> articles = new ArrayList<Article>();
+        Article pre = articleDao.findPre(id);
+        if(pre == null){
+            pre = new Article();
+        }
+        Article next = articleDao.findNext(id);
+        if(next == null){
+            next = new Article();
+        }
+        articles.add(pre);
+        articles.add(next);
+        return articles;
     }
 }
