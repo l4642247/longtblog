@@ -1,8 +1,8 @@
 package cn.nicecoder.longtblog.service;
 
-import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.entity.Comment;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  *
@@ -21,5 +21,5 @@ public interface CommentService {
      * @param pageSize
      * @return
      */
-    public Page<Comment> commentPage(int pageNumber, int pageSize);
+    public List<Comment> commentPage(Long artId, int pageNumber, int pageSize);
 }

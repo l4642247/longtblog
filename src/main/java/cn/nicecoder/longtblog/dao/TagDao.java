@@ -1,4 +1,4 @@
-package cn.nicecoder.longtblog.Dao;
+package cn.nicecoder.longtblog.dao;
 
 import cn.nicecoder.longtblog.entity.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;

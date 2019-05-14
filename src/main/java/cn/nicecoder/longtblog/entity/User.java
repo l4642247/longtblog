@@ -25,8 +25,8 @@ public class User {
     private String status;
     private String pic;
     private String name;
-    private String ob1;
-    private String ob2;
+    private String website;
+    private String email;
 
     public String getId() {
         return id;
@@ -84,33 +84,33 @@ public class User {
         this.name = name;
     }
 
-    public String getOb1() {
-        return ob1;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setOb1(String ob1) {
-        this.ob1 = ob1;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getOb2() {
-        return ob2;
+    public String getEmail() {
+        return email;
     }
 
-    public void setOb2(String ob2) {
-        this.ob2 = ob2;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public User() {
     }
 
-    public User(String username, String password, String type, String status, String pic, String name, String ob1, String ob2) {
+    public User(String username, String password, String type, String status, String pic, String name, String website, String email) {
         this.username = username;
         this.password = password;
         this.type = type;
         this.status = status;
         this.pic = pic;
         this.name = name;
-        this.ob1 = ob1;
-        this.ob2 = ob2;
+        this.website = website;
+        this.email = email;
     }
 }

@@ -1,6 +1,6 @@
 package cn.nicecoder.longtblog.service.Impl;
 
-import cn.nicecoder.longtblog.Dao.CatalogDao;
+import cn.nicecoder.longtblog.dao.CatalogDao;
 import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 /**
  * @Author: longt

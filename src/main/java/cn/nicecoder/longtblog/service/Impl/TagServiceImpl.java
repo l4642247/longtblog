@@ -1,7 +1,6 @@
 package cn.nicecoder.longtblog.service.Impl;
 
-import cn.nicecoder.longtblog.Dao.TagDao;
-import cn.nicecoder.longtblog.entity.Tag;
+import cn.nicecoder.longtblog.dao.TagDao;
 import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;

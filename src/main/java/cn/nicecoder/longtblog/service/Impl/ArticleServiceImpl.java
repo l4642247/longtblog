@@ -1,6 +1,6 @@
 package cn.nicecoder.longtblog.service.Impl;
 
-import cn.nicecoder.longtblog.Dao.ArticleDao;
+import cn.nicecoder.longtblog.dao.ArticleDao;
 import cn.nicecoder.longtblog.entity.Article;
 import cn.nicecoder.longtblog.service.ArticleService;
 import com.google.common.collect.Lists;

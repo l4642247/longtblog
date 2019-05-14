@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: longt
@@ -19,7 +20,7 @@ public class Comment {
 
     private String type;
 
-    private String discussid;
+    private Long discussid;
 
     private String userid;
 
@@ -33,15 +34,61 @@ public class Comment {
 
     private String status;
 
-    private String ob1;
-
-    private String ob2;
-
-
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name="content", columnDefinition="BLOB", nullable=true)
     private String content;
+
+    @Transient
+    private String name;
+    @Transient
+    private String pic;
+    @Transient
+    private String toname;
+    @Transient
+    private String topic;
+    @Transient
+    private List<Comment> comments;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getToname() {
+        return toname;
+    }
+
+    public void setToname(String toname) {
+        this.toname = toname;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Long getId() {
         return id;
@@ -59,11 +106,11 @@ public class Comment {
         this.type = type;
     }
 
-    public String getDiscussid() {
+    public Long getDiscussid() {
         return discussid;
     }
 
-    public void setDiscussid(String discussid) {
+    public void setDiscussid(Long discussid) {
         this.discussid = discussid;
     }
 
@@ -107,22 +154,6 @@ public class Comment {
         this.status = status;
     }
 
-    public String getOb1() {
-        return ob1;
-    }
-
-    public void setOb1(String ob1) {
-        this.ob1 = ob1;
-    }
-
-    public String getOb2() {
-        return ob2;
-    }
-
-    public void setOb2(String ob2) {
-        this.ob2 = ob2;
-    }
-
     public String getContent() {
         return content;
     }
@@ -134,7 +165,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String type, String discussid, String userid, String touserid, Date createTime, int agree, String status, String content) {
+    public Comment(String type, Long discussid, String userid, String touserid, Date createTime, int agree, String status, String content) {
         this.type = type;
         this.discussid = discussid;
         this.userid = userid;

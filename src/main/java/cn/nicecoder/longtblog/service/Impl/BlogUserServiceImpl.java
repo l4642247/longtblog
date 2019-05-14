@@ -1,7 +1,7 @@
 package cn.nicecoder.longtblog.service.Impl;
 
 import cn.hutool.crypto.SecureUtil;
-import cn.nicecoder.longtblog.Dao.UserDao;
+import cn.nicecoder.longtblog.dao.UserDao;
 import cn.nicecoder.longtblog.entity.User;
 import cn.nicecoder.longtblog.service.BlogUserService;
 import org.springframework.beans.factory.annotation.Autowired;
