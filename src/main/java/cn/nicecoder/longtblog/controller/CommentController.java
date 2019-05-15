@@ -1,6 +1,8 @@
 package cn.nicecoder.longtblog.controller;
 
 import cn.nicecoder.longtblog.entity.Comment;
+import cn.nicecoder.longtblog.pojo.CommentResult;
+import cn.nicecoder.longtblog.pojo.CommentStatistic;
 import cn.nicecoder.longtblog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +32,9 @@ public class CommentController {
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public List<Comment> allTags(@RequestParam(value = "artId",required = true) Long artId,
-                                     @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
-                                     @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
+    public List<CommentResult> allTags(@RequestParam(value = "artId",required = true) Long artId,
+                                       @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
+                                       @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
         return commentService.commentPage(artId, pageNumber, pageSize);
     }
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @Author: longt
@@ -38,57 +37,6 @@ public class Comment {
     @Basic(fetch = FetchType.LAZY)
     @Column(name="content", columnDefinition="BLOB", nullable=true)
     private String content;
-
-    @Transient
-    private String name;
-    @Transient
-    private String pic;
-    @Transient
-    private String toname;
-    @Transient
-    private String topic;
-    @Transient
-    private List<Comment> comments;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getToname() {
-        return toname;
-    }
-
-    public void setToname(String toname) {
-        this.toname = toname;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public Long getId() {
         return id;

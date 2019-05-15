@@ -1,6 +1,7 @@
 package cn.nicecoder.longtblog.service;
 
 import cn.nicecoder.longtblog.entity.Comment;
+import cn.nicecoder.longtblog.pojo.CommentResult;
 
 import java.util.List;
 
@@ -21,5 +22,5 @@ public interface CommentService {
      * @param pageSize
      * @return
      */
-    public List<Comment> commentPage(Long artId, int pageNumber, int pageSize);
+    public List<CommentResult> commentPage(Long artId, int pageNumber, int pageSize);
 }
