@@ -27,12 +27,12 @@ public class CommentController {
                           @RequestParam(value = "touid",required = false) String touid,
                           @RequestParam(value = "type",required = false) String type,
                           @RequestParam(value = "content",required = true) String content){
-        Comment comment = new Comment(type, discussid, uid, touid, new Date(), 0, "1", content);
+        Comment comment = new Comment(type, discussid, uid, touid, new Date(), 0, "1", content.getBytes());
         return commentService.createComment(comment);
     }
 
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    public List<CommentResult> allTags(@RequestParam(value = "artId",required = true) Long artId,
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public List<CommentResult> tagPage(@RequestParam(value = "artId",required = true) Long artId,
                                        @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
                                        @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
         return commentService.commentPage(artId, pageNumber, pageSize);

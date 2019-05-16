@@ -44,12 +44,12 @@ public class ArticleController {
         Catalog catalog = catalogService.findById(catalogId);
         Article art = null;
         if(id == null) {
-            art = new Article(title, summary, "longt", content, 0l, status, new Date(), new Date());
+            art = new Article(title, summary, "longt", content.getBytes(), 0l, status, new Date(), new Date(), 0);
         }else{
             art = articleService.articleDetail(id);
             art.setTitle(title);
             art.setStatus(status);
-            art.setContent(content);
+            art.setContent(content.getBytes());
         }
         //建立双向连接，顺序很重要
         //关联类别

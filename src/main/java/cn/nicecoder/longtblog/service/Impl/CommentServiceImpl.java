@@ -32,6 +32,15 @@ public class CommentServiceImpl implements CommentService {
         List<CommentStatistic> cstatic = commentDao.findByArtId(artId,pageNumber,pageSize,"1");
         cstatic.forEach(o -> {
             CommentResult comm = o.toComment();
+            // 2级
+            Long commId = comm.getId();
+            List<CommentResult> result2 = new ArrayList<CommentResult>();
+            List<CommentStatistic> cstaticbyCommId= commentDao.findByCommentId(commId,0,100,"2");
+            cstaticbyCommId.forEach(o2 -> {
+                CommentResult comm2 = o2.toComment();
+                result2.add(comm2);
+            });
+            comm.setCommentResults(result2);
             result.add(comm);
         });
         return result;

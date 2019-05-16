@@ -1,9 +1,9 @@
 package cn.nicecoder.longtblog.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @Author: longt
@@ -18,11 +18,13 @@ public class Agree {
 
     private String type;
 
-    private String agreeid;
+    private Long agreeid;
 
-    private String userid;
+    private Long userid;
 
-    private String pudate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date pudate;
 
     private String ob1;
 
@@ -44,27 +46,27 @@ public class Agree {
         this.type = type;
     }
 
-    public String getAgreeid() {
+    public Long getAgreeid() {
         return agreeid;
     }
 
-    public void setAgreeid(String agreeid) {
+    public void setAgreeid(Long agreeid) {
         this.agreeid = agreeid;
     }
 
-    public String getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(String userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
-    public String getPudate() {
+    public Date getPudate() {
         return pudate;
     }
 
-    public void setPudate(String pudate) {
+    public void setPudate(Date pudate) {
         this.pudate = pudate;
     }
 
@@ -84,11 +86,10 @@ public class Agree {
         this.ob2 = ob2;
     }
 
-    public Agree(String type) {
-        this.type = type;
+    public Agree() {
     }
 
-    public Agree(String type, String agreeid, String userid, String pudate, String ob1, String ob2) {
+    public Agree(String type, Long agreeid, Long userid, Date pudate) {
         this.type = type;
         this.agreeid = agreeid;
         this.userid = userid;

@@ -11,7 +11,7 @@ public interface CommentStatistic {
     String getType();
     String getStatus();
     int getAgree();
-    String getContent();
+    byte[] getContent();
     Date getCreateTime();
     Long getId();
     String getTouserid();
@@ -26,12 +26,7 @@ public interface CommentStatistic {
         result.setType(getType());
         result.setStatus(getStatus());
         result.setAgree(getAgree());
-        String[] chars = getContent().split(",");
-        StringBuffer sbu = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            sbu.append((char) Integer.parseInt(chars[i]));
-        }
-        result.setContent(sbu.toString());
+        result.setContent(getContent());
         result.setCreateTime(getCreateTime());
         result.setId(getId());
         result.setTouserid(getTouserid());

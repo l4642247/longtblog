@@ -1,8 +1,6 @@
 package cn.nicecoder.longtblog.pojo;
 
 import cn.nicecoder.longtblog.entity.Comment;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.List;
 

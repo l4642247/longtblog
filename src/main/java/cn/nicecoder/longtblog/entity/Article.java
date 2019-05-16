@@ -30,10 +30,12 @@ public class Article {
     private String author;
     private String summary;
 
+    private int agree;
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name="content", columnDefinition="BLOB", nullable=true)
-    private String content;
+    private byte[] content;
     private Long   click;
     private String status;
 
@@ -90,7 +92,7 @@ public class Article {
         this.author = author;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
@@ -127,7 +129,7 @@ public class Article {
     }
 
     public String getContent() {
-        return content;
+        return new String(content);
     }
 
     public Article() {
@@ -157,7 +159,15 @@ public class Article {
         this.tags = tags;
     }
 
-    public Article(String title, String summary, String author, String content, Long click, String status, Date createTime, Date updateTime) {
+    public int getAgree() {
+        return agree;
+    }
+
+    public void setAgree(int agree) {
+        this.agree = agree;
+    }
+
+    public Article(String title, String summary, String author, byte[] content, Long click, String status, Date createTime, Date updateTime, int agree) {
         this.summary = summary;
         this.title = title;
         this.author = author;
@@ -166,5 +176,6 @@ public class Article {
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.agree = agree;
     }
 }

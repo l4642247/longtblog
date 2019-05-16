@@ -36,7 +36,7 @@ public class Comment {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name="content", columnDefinition="BLOB", nullable=true)
-    private String content;
+    private byte[] content;
 
     public Long getId() {
         return id;
@@ -103,17 +103,17 @@ public class Comment {
     }
 
     public String getContent() {
-        return content;
+        return new String(content);
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
     public Comment() {
     }
 
-    public Comment(String type, Long discussid, String userid, String touserid, Date createTime, int agree, String status, String content) {
+    public Comment(String type, Long discussid, String userid, String touserid, Date createTime, int agree, String status, byte[] content) {
         this.type = type;
         this.discussid = discussid;
         this.userid = userid;
