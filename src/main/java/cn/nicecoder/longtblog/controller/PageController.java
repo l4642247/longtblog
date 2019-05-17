@@ -30,6 +30,11 @@ public class PageController {
     @Autowired
     ArticleService articleService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(){
+        return new ModelAndView("redirect:index.html");
+    }
+
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(){
         return new ModelAndView("login");
@@ -41,8 +46,15 @@ public class PageController {
     }
 
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public ModelAndView index(){
-        return new ModelAndView("index");
+    public ModelAndView index(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
+                              @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
+                              @RequestParam(value = "title",required = false) String title,
+                              @RequestParam(value = "catalog",required = false) String catalog,
+                              @RequestParam(value = "status",required = false) String status){
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, status);
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("articles", articles);
+        return mv;
     }
 
     @RequestMapping(value = "/about.html", method = RequestMethod.GET)

@@ -2,6 +2,7 @@ package cn.nicecoder.longtblog.service.Impl;
 
 import cn.nicecoder.longtblog.dao.ArticleDao;
 import cn.nicecoder.longtblog.entity.Article;
+import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.service.ArticleService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,10 @@ public class ArticleServiceImpl implements ArticleService {
                             .like(root.get("title"), "%" + title + "%"));
                 }
                 if(!StringUtils.isEmpty(catalog)){
+                    Catalog cat = new Catalog();
+                    cat.setId(Long.parseLong(catalog));
                     predicates.add(criteriaBuilder
-                            .like(root.get("catalog"), "%" + catalog + "%"));
+                            .equal(root.get("catalog"), cat));
                 }
                 if(!StringUtils.isEmpty(status)){
                     predicates.add(criteriaBuilder
