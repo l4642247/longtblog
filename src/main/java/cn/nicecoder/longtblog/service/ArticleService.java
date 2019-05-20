@@ -2,6 +2,7 @@ package cn.nicecoder.longtblog.service;
 
 import cn.nicecoder.longtblog.entity.Article;
 
+import cn.nicecoder.longtblog.entity.Catalog;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 
@@ -43,4 +44,11 @@ public interface ArticleService {
      * @return
      */
     public List<Article> articleNearly(Long id);
+
+    /**
+     * 查询类别
+     * @param id
+     * @return
+     */
+    public Catalog findCatalogById(Long id);
 }

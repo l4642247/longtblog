@@ -20,8 +20,8 @@ public class Catalog {
     private String des;
 
     //如果不需要根据Catalog级联查询Article，可以注释掉
-    /*@OneToMany(mappedBy = "catalog")
-    private List<Article> articleList;*/
+    @OneToMany(mappedBy = "catalog", fetch = FetchType.LAZY)
+    private List<Article> articleList;
 
     public Long getId() {
         return id;

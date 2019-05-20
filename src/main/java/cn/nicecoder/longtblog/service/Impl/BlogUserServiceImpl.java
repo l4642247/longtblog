@@ -29,7 +29,7 @@ public class BlogUserServiceImpl implements BlogUserService {
     }
 
     @Override
-    public User userInfo(String id) {
+    public User userInfo(Long id) {
         User user  = null;
         //在空的Optional实例上调用get()，抛出NoSuchElementException
         if(blogUserDao.findById(id) != null && blogUserDao.findById(id).isPresent()){

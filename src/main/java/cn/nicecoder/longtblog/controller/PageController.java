@@ -32,7 +32,9 @@ public class PageController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(){
-        return new ModelAndView("redirect:index.html");
+        ModelAndView mv = new ModelAndView("redirect:index.html");
+        mv.addObject("catalog",null);
+        return mv;
     }
 
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
@@ -54,6 +56,7 @@ public class PageController {
         Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, status);
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("articles", articles);
+        mv.addObject("catalog",catalog);
         return mv;
     }
 
@@ -67,9 +70,13 @@ public class PageController {
         return new ModelAndView("gbook");
     }
 
-    @RequestMapping(value = "/info.html", method = RequestMethod.GET)
-    public ModelAndView info(){
-        return new ModelAndView("info");
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
+    public ModelAndView info(@PathVariable Long id){
+        ModelAndView mv = new ModelAndView("info");
+        Article article = articleService.articleDetail(id);
+        mv.addObject("catalog",articleService.findCatalogById(article.getId()));
+        mv.addObject("article",article);
+        return mv;
     }
 
     @RequestMapping(value = "/infopic.html", method = RequestMethod.GET)

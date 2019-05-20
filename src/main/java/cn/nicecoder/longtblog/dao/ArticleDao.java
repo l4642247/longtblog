@@ -21,4 +21,7 @@ public interface ArticleDao extends JpaRepository<Article, Long>, JpaSpecificati
     @Query(value="update article set agree = agree + 1 where id = ?1", nativeQuery = true)
     void updateAgree(Long id);
 
+    @Query(value="SELECT catalog_id FROM article where id = ?1 ", nativeQuery = true)
+    Long findCatalogId(Long id);
+
 }

@@ -9,7 +9,7 @@ public interface BlogUserService {
     boolean login(String username, String password);
 
     //查询用户详情
-    User userInfo(String id);
+    User userInfo(Long id);
 
     //查询所有
     List<User> AllUserInfo();

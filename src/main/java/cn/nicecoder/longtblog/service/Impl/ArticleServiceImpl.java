@@ -1,6 +1,7 @@
 package cn.nicecoder.longtblog.service.Impl;
 
 import cn.nicecoder.longtblog.dao.ArticleDao;
+import cn.nicecoder.longtblog.dao.CatalogDao;
 import cn.nicecoder.longtblog.entity.Article;
 import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.service.ArticleService;
@@ -31,6 +32,9 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleDao articleDao;
+
+    @Autowired
+    CatalogDao catalogDao;
 
     @Override
     public Article articleCreate(Article article) {
@@ -87,5 +91,12 @@ public class ArticleServiceImpl implements ArticleService {
         articles.add(pre);
         articles.add(next);
         return articles;
+    }
+
+
+    @Override
+    public Catalog findCatalogById(Long id) {
+        Long catalogId = articleDao.findCatalogId(id);
+        return catalogDao.getOne(catalogId);
     }
 }
