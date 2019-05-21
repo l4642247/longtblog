@@ -7,7 +7,6 @@ import cn.nicecoder.longtblog.service.UserService;
 import cn.nicecoder.longtblog.util.AddressUtil;
 import cn.nicecoder.longtblog.util.IPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,19 +38,21 @@ public class AgreeController {
         if(userId == null){
             String username = IPUtil.getIpAddress(request);
             User user = userService.findByUsername(username);
-            if(user != null){
-                return null;
-            }else{
+            if(user == null){
                 user = new User();
                 user.setType("0");
                 user.setUsername(username);
                 user.setName(AddressUtil.getAddresses("ip=" + username, "utf-8"));
                 user.setPic("https://nicecoder.cn/imagelibrary/20190509/20190509_0930360.JPG");
                 user = userService.create(user);
-                userId = user.getId();
             }
+            userId = user.getId();
         }
-        return agreeService.create(agreeId, type, userId);
+        Agree agree = agreeService.create(agreeId, type, userId);
+        if(agree == null){
+            return new Agree();
+        }
+        return agree;
     }
 
 }

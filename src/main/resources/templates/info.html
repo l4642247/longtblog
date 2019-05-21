@@ -110,16 +110,15 @@
         <div class="news_con" th:utext="${article.content}"> </div>
       </div>
       <div class="share">
-        <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum" th:text="${article.agree}">13</b>)</p>
+        <p class="diggit"><a href="javascript:;" onclick="agreeInit()"> 很赞哦！ </a>(<b id="diggnum" th:text="${article.agree}">13</b>)</p>
       </div>
       <div class="nextinfo">
-        <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
-        <p>下一篇：<a href="/news/life/">返回列表</a></p>
+        <p>上一篇：</p>
+        <p>下一篇：</p>
       </div>
       <div class="news_pl">
         <h2>文章评论</h2>
         <div class="gbko"> 
-          <script src="/e/pl/more/?classid=77&amp;id=106&amp;num=20"></script>
           <div class="fb">
             <ul>
               <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
@@ -179,21 +178,52 @@
 
 <script>
   $(function(){
-      AgreeInit();
+      initNextInfo();
   });
 
-  function AgreeInit(){
+  function initNextInfo(){
       var id = [[${article.id}]];
+      $.ajax({
+          url: '/article/near/'+id,
+          method: 'get',
+          dataType:'json',
+          success: function(result){
+              var pre = result.pre;
+              var next = result.next;
+              var html='';
+              if(pre.id == null || typeof (pre.id) == 'undefined'){
+                  html += '<p>上一篇：<a href="../index.html">返回列表</a></p>';
+              }else{
+                  html += '<p>上一篇：<a href="' + pre.id + '">' + pre.title + '</a></p>';
+              }
+              if(next.id == null || typeof (next.id) == 'undefined'){
+                  html += '<p>下一篇：<a href="../index.html">返回列表</a></p>'
+              }else{
+                  html += '<p>下一篇：<a href="' + next.id + '">' + next.title + '</a></p>';
+              }
+              $(".nextinfo").html(html);
+          }
+      });
+  }
+
+  function agreeInit(){
+      var id = [[${article.id}]];
+      var userId = '';
       $.ajax({
           url: '/agree/create',
           method: 'post',
           dataType:'json',
           data:{
               agreeId : id,
-              type : '1'
+              type : '1',
+              userId : userId
           },
           success: function(result){
-            console.log(result)
+            var diggnum = $("#diggnum").html();
+            if(result.id != null){
+                diggnum =  parseInt(diggnum) + 1;
+                $("#diggnum").html(diggnum);
+            }
           }
       });
   }

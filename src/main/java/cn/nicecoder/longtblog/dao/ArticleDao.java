@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ArticleDao extends JpaRepository<Article, Long>, JpaSpecificationExecutor {
 
-    @Query(value="SELECT * FROM article where id < ?1 limit 1", nativeQuery = true)
+    @Query(value="SELECT * FROM article where id < ?1 ORDER BY create_time DESC limit 1", nativeQuery = true)
     Article findPre(Long id);
 
-    @Query(value="SELECT * FROM article where id > ?1 limit 1", nativeQuery = true)
+    @Query(value="SELECT * FROM article where id > ?1 ORDER BY create_time limit 1", nativeQuery = true)
     Article findNext(Long id);
 
 

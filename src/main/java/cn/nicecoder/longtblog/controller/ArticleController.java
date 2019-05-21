@@ -1,5 +1,6 @@
 package cn.nicecoder.longtblog.controller;
 
+import cn.hutool.json.JSONObject;
 import cn.nicecoder.longtblog.entity.Article;
 import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.entity.Tag;
@@ -93,8 +94,11 @@ public class ArticleController {
 
     @RequestMapping(value = "/near/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Article> nearlyArt(@PathVariable Long id){
-        return articleService.articleNearly(id);
+    public JSONObject nearlyArt(@PathVariable Long id){
+        JSONObject jb = new JSONObject();
+        jb.put("pre",articleService.articleNearly(id).get(0));
+        jb.put("next",articleService.articleNearly(id).get(1));
+        return jb;
     }
 
 }
