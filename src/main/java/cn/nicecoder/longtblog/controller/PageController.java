@@ -52,8 +52,9 @@ public class PageController {
                               @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                               @RequestParam(value = "title",required = false) String title,
                               @RequestParam(value = "catalog",required = false) String catalog,
+                              @RequestParam(value = "tag",required = false) String tag,
                               @RequestParam(value = "status",required = false) String status){
-        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, status);
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("articles", articles);
         mv.addObject("catalog",catalog);
@@ -129,8 +130,9 @@ public class PageController {
                                      @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                                      @RequestParam(value = "title",required = false) String title,
                                      @RequestParam(value = "catalog",required = false) String catalog,
+                                     @RequestParam(value = "tag",required = false) String tag,
                                      @RequestParam(value = "status",required = false) String status){
-        Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalog, status);
+        Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
         ModelAndView mv = new ModelAndView("admin/article-table");
         mv.addObject("articleList",list.getContent());
         return mv;

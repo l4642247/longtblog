@@ -27,7 +27,7 @@ public interface ArticleService {
      * @param status
      * @return
      */
-    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String status);
+    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tag, String status);
 
 
     /**

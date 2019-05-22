@@ -82,8 +82,9 @@ public class ArticleController {
                                 @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                                 @RequestParam(value = "title",required = false) String title,
                                 @RequestParam(value = "catalog",required = false) String catalog,
+                                @RequestParam(value = "tag",required = false) String tag,
                                 @RequestParam(value = "status",required = false) String status){
-        return articleService.articleSearch(pageNumber, pageSize, title, catalog, status);
+        return articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)

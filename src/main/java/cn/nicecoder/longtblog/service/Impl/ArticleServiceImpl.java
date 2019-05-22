@@ -1,9 +1,11 @@
 package cn.nicecoder.longtblog.service.Impl;
 
+import cn.hutool.db.sql.SqlBuilder;
 import cn.nicecoder.longtblog.dao.ArticleDao;
 import cn.nicecoder.longtblog.dao.CatalogDao;
 import cn.nicecoder.longtblog.entity.Article;
 import cn.nicecoder.longtblog.entity.Catalog;
+import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -42,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String status) {
+    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tagId, String status) {
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -56,6 +57,10 @@ public class ArticleServiceImpl implements ArticleService {
                     cat.setId(Long.parseLong(catalog));
                     predicates.add(criteriaBuilder
                             .equal(root.get("catalog"), cat));
+                }
+                if(!StringUtils.isEmpty(tagId)){
+                    Join<Article, Tag> articleJoin = root.join("tags", JoinType.LEFT);
+                    predicates.add(criteriaBuilder.equal(articleJoin.get("id"), tagId)) ;
                 }
                 if(!StringUtils.isEmpty(status)){
                     predicates.add(criteriaBuilder

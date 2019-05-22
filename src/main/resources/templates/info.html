@@ -82,7 +82,6 @@
     <div class="cloud">
       <h2>标签云</h2>
       <ul>
-        <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
       </ul>
     </div>
     <div class="guanzhu">
@@ -105,7 +104,7 @@
             <li class="view" th:text="${article.click + '人已阅读'}"></li>
           </ul>
         </div>
-        <div class="tags"><a href="/" target="_blank">个人博客</a> &nbsp; <a href="/" target="_blank">小世界</a></div>
+        <div class="tags"></div>
         <div class="news_about" th:text="${article.summary}"></div>
         <div class="news_con" th:utext="${article.content}"> </div>
       </div>
@@ -119,13 +118,7 @@
       <div class="news_pl">
         <h2>文章评论</h2>
         <div class="gbko"> 
-          <div class="fb">
-            <ul>
-              <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
-              <p class="fbinfo">这才是我要的朋友圈</p>
-            </ul>
-          </div>
-          <div class="fb">
+          <!--<div class="fb">
             <ul>
               <p class="fbtime"><span>2018-07-24 08:52:48</span> 卜野</p>
               <p class="fbinfo"></p>
@@ -133,8 +126,9 @@
                 <p class="ecommenttext">坚持哟!看你每天都有写，请继续加油，再接再厉哦</p>
               </div>
             </ul>
-          </div>
-          
+          </div>-->
+          <div id="comment"></div>
+
           <script>
 		  function CheckPl(obj)
 		  {
@@ -147,23 +141,18 @@
 		  return true;
 		  }
 		  </script>
-          <form action="/e/pl/doaction.php" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+          <form action="/comment/create" method="post" >
             <div id="plpost">
-              <p class="saying"><span><a href="/e/pl/?classid=77&amp;id=106">共有<script type="text/javascript" src="/e/public/ViewClick/?classid=77&amp;id=106&amp;down=2"></script>2条评论</a></span>来说两句吧...</p>
+              <p class="saying"><span><a href="#" id="commentNum"></a></span>来说两句吧...</p>
+              <input type="hidden" name="discussid" th:value="${article.id}">
               <p class="yname"><span>用户名:</span>
-                <input name="username" type="text" class="inputText" id="username" value="" size="16">
+                <input name="uid" type="text" class="inputText" id="username" value="" size="16">
               </p>
-              <p class="yzm"><span>验证码:</span>
+              <!-- <p class="yzm"><span>验证码:</span>
                 <input name="key" type="text" class="inputText" size="16">
-              </p>
-              <input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
-              <textarea name="saytext" rows="6" id="saytext"></textarea>
+              </p>-->
+              <textarea name="content" rows="6" id="saytext"></textarea>
               <input name="imageField" type="submit" value="提交">
-              <input name="id" type="hidden" id="id" value="106">
-              <input name="classid" type="hidden" id="classid" value="77">
-              <input name="enews" type="hidden" id="enews" value="AddPl">
-              <input name="repid" type="hidden" id="repid" value="0">
-              <input type="hidden" name="ecmsfrom" value="/joke/talk/2018-07-23/106.html">
             </div>
           </form>
         </div>
@@ -179,6 +168,9 @@
 <script>
   $(function(){
       initNextInfo();
+      initArtTags();
+      initAllTags();
+      initComment();
   });
 
   function initNextInfo(){
@@ -202,6 +194,57 @@
                   html += '<p>下一篇：<a href="' + next.id + '">' + next.title + '</a></p>';
               }
               $(".nextinfo").html(html);
+          }
+      });
+  }
+
+  function initComment(){
+      var id = [[${article.id}]];
+      $.ajax({
+          url: '/comment/page?artId='+id,
+          method: 'get',
+          dataType:'json',
+          success: function(result){
+              var html = '';
+              var mun = 0;
+              $.each(result, function(i, val){
+                  html += '<div class="fb"><ul><p class="fbtime"><span>'+ val.createTime +'</span>'+ val.name +'</p>';
+                  html += '<p class="fbinfo">'+ val.content +'</p></ul></div>';
+                  mun++;
+              });
+              $("#comment").append(html);
+              $("#commentNum").html('共有'+mun+'条评论');
+          }
+      });
+  }
+
+  function initArtTags(){
+      var id = [[${article.id}]];
+      $.ajax({
+          url: '/tag/getTagsById/'+id,
+          method: 'get',
+          dataType:'json',
+          success: function(result){
+              var html = '';
+              $.each(result, function(i, val){
+                  html += '<a href="/index.html?tag=' + val.id + '" target="_blank">'+val.name+'</a> &nbsp;';
+              });
+              $(".tags").html(html);
+          }
+      });
+  }
+
+  function initAllTags(){
+      $.ajax({
+          url: '/tag/all',
+          method: 'get',
+          dataType:'json',
+          success: function(result){
+              var html = '';
+              $.each(result.content, function(i, val){
+                  html += '<a href="/index.html?tag=' + val.id + '">'+val.name+'</a>';
+              });
+              $(".cloud ul").html(html);
           }
       });
   }
