@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CommentDao extends JpaRepository<Comment, Long>, JpaSpecificationExecutor {
 
-    @Query(value="SELECT a.*,b.name as name,b.pic as pic " +
+    @Query(value="SELECT a.*,b.name as name,b.pic as pic, a.create_time as createtime " +
             "FROM comment a LEFT JOIN user b on a.userid = b.id WHERE discussid = ?1 AND a.type=?4 LIMIT ?2,?3 ;", nativeQuery = true)
     List<CommentStatistic> findByArtId(Long CommentId, int pageNo, int pageSize, String type);
 

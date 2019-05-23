@@ -12,10 +12,10 @@ public interface CommentStatistic {
     String getStatus();
     int getAgree();
     byte[] getContent();
-    Date getCreateTime();
+    Date getCreatetime();
     Long getId();
-    String getTouserid();
-    String getUserid();
+    Long getTouserid();
+    Long getUserid();
     String getName();
     String getPic();
     String getToname();
@@ -27,7 +27,7 @@ public interface CommentStatistic {
         result.setStatus(getStatus());
         result.setAgree(getAgree());
         result.setContent(getContent());
-        result.setCreateTime(getCreateTime());
+        result.setCreateTime(getCreatetime());
         result.setId(getId());
         result.setTouserid(getTouserid());
         result.setUserid(getUserid());

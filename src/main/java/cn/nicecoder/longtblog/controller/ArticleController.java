@@ -102,4 +102,10 @@ public class ArticleController {
         return jb;
     }
 
+    @RequestMapping(value = "top8", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Article> top8(){
+        return articleService.findTop8();
+    }
+
 }

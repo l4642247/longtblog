@@ -21,9 +21,9 @@ public class Comment {
 
     private Long discussid;
 
-    private String userid;
+    private Long userid;
 
-    private String touserid;
+    private Long touserid;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,19 +62,19 @@ public class Comment {
         this.discussid = discussid;
     }
 
-    public String getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(String userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
-    public String getTouserid() {
+    public Long getTouserid() {
         return touserid;
     }
 
-    public void setTouserid(String touserid) {
+    public void setTouserid(Long touserid) {
         this.touserid = touserid;
     }
 
@@ -113,7 +113,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String type, Long discussid, String userid, String touserid, Date createTime, int agree, String status, byte[] content) {
+    public Comment(String type, Long discussid, Long userid, Long touserid, Date createTime, int agree, String status, byte[] content) {
         this.type = type;
         this.discussid = discussid;
         this.userid = userid;

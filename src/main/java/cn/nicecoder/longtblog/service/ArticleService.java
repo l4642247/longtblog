@@ -51,4 +51,11 @@ public interface ArticleService {
      * @return
      */
     public Catalog findCatalogById(Long id);
+
+
+    /**
+     * 查询类别
+     * @return
+     */
+    public List<Article> findTop8();
 }

@@ -104,4 +104,9 @@ public class ArticleServiceImpl implements ArticleService {
         Long catalogId = articleDao.findCatalogId(id);
         return catalogDao.getOne(catalogId);
     }
+
+    @Override
+    public List<Article> findTop8() {
+        return articleDao.findTop8();
+    }
 }
