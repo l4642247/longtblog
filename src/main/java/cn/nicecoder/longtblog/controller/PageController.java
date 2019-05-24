@@ -5,6 +5,7 @@ import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import cn.nicecoder.longtblog.service.CatalogService;
+import cn.nicecoder.longtblog.util.IPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 /**
@@ -54,7 +57,7 @@ public class PageController {
                               @RequestParam(value = "catalog",required = false) String catalog,
                               @RequestParam(value = "tag",required = false) String tag,
                               @RequestParam(value = "status",required = false) String status){
-        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, "1");
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("articles", articles);
         mv.addObject("catalog",catalog);
@@ -72,11 +75,14 @@ public class PageController {
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-    public ModelAndView info(@PathVariable Long id){
+    public ModelAndView info(@PathVariable Long id ,
+                             HttpServletRequest request) throws UnsupportedEncodingException {
         ModelAndView mv = new ModelAndView("info");
         Article article = articleService.articleDetail(id);
         mv.addObject("catalog",articleService.findCatalogById(article.getId()));
         mv.addObject("article",article);
+        String username = IPUtil.getIpAddress(request);
+        mv.addObject("username",username);
         return mv;
     }
 
@@ -86,8 +92,13 @@ public class PageController {
     }
 
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
-    public ModelAndView list(){
-        return new ModelAndView("list");
+    public ModelAndView list(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
+                             @RequestParam(value = "pagesize",defaultValue = "20") int pageSize,
+                             @RequestParam(value = "type",required = false) String type){
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, null, null, null, null, "0");
+        ModelAndView mv= new ModelAndView("list");
+        mv.addObject("articles", articles);
+        return mv;
     }
 
     @RequestMapping(value = "/share.html", method = RequestMethod.GET)
@@ -101,6 +112,8 @@ public class PageController {
         Article article = new Article();
         if(id != null) {
             article = articleService.articleDetail(id);
+        }else{
+            article.setContent("".getBytes());
         }
         mv.addObject("article", article);
         Set<Tag> tagSet= article.getTags();
@@ -132,7 +145,7 @@ public class PageController {
                                      @RequestParam(value = "catalog",required = false) String catalog,
                                      @RequestParam(value = "tag",required = false) String tag,
                                      @RequestParam(value = "status",required = false) String status){
-        Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
+        Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, null);
         ModelAndView mv = new ModelAndView("admin/article-table");
         mv.addObject("articleList",list.getContent());
         return mv;

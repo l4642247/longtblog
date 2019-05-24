@@ -31,6 +31,7 @@ public class Article {
     private String summary;
 
     private int agree;
+    private String type;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -67,6 +68,13 @@ public class Article {
     @JsonBackReference
     private Set<Tag> tags = new HashSet<Tag>();
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
@@ -167,7 +175,7 @@ public class Article {
         this.agree = agree;
     }
 
-    public Article(String title, String summary, String author, byte[] content, Long click, String status, Date createTime, Date updateTime, int agree) {
+    public Article(String title, String summary, String author, byte[] content, Long click, String status, Date createTime, Date updateTime, int agree, String type) {
         this.summary = summary;
         this.title = title;
         this.author = author;
@@ -177,5 +185,6 @@ public class Article {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.agree = agree;
+        this.type = type;
     }
 }

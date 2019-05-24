@@ -34,7 +34,7 @@ public class CommentController {
                                @RequestParam(value = "uid",required = false) Long uid,
                                @RequestParam(value = "touid",required = false) Long touid,
                                @RequestParam(value = "type",required = false) String type,
-                               @RequestParam(value = "name",required = false) String name,
+                               @RequestParam(value = "name",required = true) String name,
                                @RequestParam(value = "content",required = true) String content,
                                HttpServletRequest request) throws UnsupportedEncodingException {
         ModelAndView mv = new ModelAndView("redirect:../info/" + discussid);
@@ -44,10 +44,11 @@ public class CommentController {
             user = new User();
             user.setType("0");
             user.setUsername(username);
-            user.setName(name);
-            user.setPic("https://nicecoder.cn/imagelibrary/20190509/20190509_0930360.JPG");
-            user = userService.create(user);
         }
+        user.setName(name);
+        user.setPic("https://nicecoder.cn/imagelibrary/20190509/20190509_0930360.JPG");
+        user = userService.create(user);
+
         Long userId = user.getId();
         Comment comment = new Comment(type, discussid, userId, touid, new Date(), 0, "1", content.getBytes());
         comment =commentService.createComment(comment);

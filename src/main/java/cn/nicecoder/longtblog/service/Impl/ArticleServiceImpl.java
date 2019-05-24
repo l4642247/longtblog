@@ -43,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tagId, String status) {
+    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tagId, String status, String type) {
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -57,6 +57,10 @@ public class ArticleServiceImpl implements ArticleService {
                     cat.setId(Long.parseLong(catalog));
                     predicates.add(criteriaBuilder
                             .equal(root.get("catalog"), cat));
+                }
+                if(!StringUtils.isEmpty(type)){
+                    predicates.add(criteriaBuilder
+                            .equal(root.get("type"), type));
                 }
                 if(!StringUtils.isEmpty(tagId)){
                     Join<Article, Tag> articleJoin = root.join("tags", JoinType.LEFT);

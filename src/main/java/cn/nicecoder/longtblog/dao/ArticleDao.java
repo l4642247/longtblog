@@ -22,9 +22,14 @@ public interface ArticleDao extends JpaRepository<Article, Long>, JpaSpecificati
     @Query(value="update article set agree = agree + 1 where id = ?1", nativeQuery = true)
     void updateAgree(Long id);
 
+    @Transactional
+    @Modifying
+    @Query(value="update article set click = click + 1 where id = ?1", nativeQuery = true)
+    void updateClick(Long id);
+
     @Query(value="SELECT catalog_id FROM article where id = ?1 ", nativeQuery = true)
     Long findCatalogId(Long id);
 
-    @Query(value="SELECT * FROM article ORDER BY click DESC LIMIT 8", nativeQuery = true)
+    @Query(value="SELECT * FROM article WHERE type='1' ORDER BY click DESC LIMIT 8", nativeQuery = true)
     List<Article> findTop8();
 }

@@ -56,7 +56,7 @@
             <li class="author">作者：<a href="/" th:text="${article.author}"></a></li>
             <li class="lmname"><a th:href="${'../index.html?catalog='+catalog.id}" th:text="${catalog.name}"></a></li>
            <!-- <input type="hidden" th:value="${article.catalog}" name="catalogId"/>-->
-            <li class="timer" th:text="${'时间：'+article.createTime}"></li>
+            <li class="timer" th:text="${'时间：'+ #dates.format(article.createTime ,'yyyy年MM月dd日 HH:mm:ss')}"></li>
             <li class="view" th:text="${article.click + '人已阅读'}"></li>
           </ul>
         </div>
@@ -128,7 +128,23 @@
       initComment();
       catalogInit();
       top8();
+      click();
   });
+
+  function click(){
+      var id = [[${article.id}]];
+      var username = '[[${username}]]';
+      var key = username + id;
+      if(getCookie(key) != 'see'){
+          setCookie(key, 'see', 1);
+          $.ajax({
+              url: '/click/create/' + id,
+              method: 'get',
+              dataType: 'json',
+              success: function(result){}
+          });
+      }
+  }
 
   function initNextInfo(){
       var id = [[${article.id}]];

@@ -39,13 +39,14 @@ public class ArticleController {
                                @RequestParam(value = "summary",required = true) String summary,
                                @RequestParam(value = "content",required = true) String content,
                                @RequestParam(value = "tags",required = true) String tagStr,
+                               @RequestParam(value = "type",required = true) String type,
                                @RequestParam(value = "catalog",required = true) Long catalogId,
                                @RequestParam(value = "status",required = false, defaultValue = "0") String status,
                                @RequestParam(value = "id",required = false) Long id){
         Catalog catalog = catalogService.findById(catalogId);
         Article art = null;
         if(id == null) {
-            art = new Article(title, summary, "longt", content.getBytes(), 0l, status, new Date(), new Date(), 0);
+            art = new Article(title, summary, "longt", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
         }else{
             art = articleService.articleDetail(id);
             art.setTitle(title);
@@ -84,7 +85,7 @@ public class ArticleController {
                                 @RequestParam(value = "catalog",required = false) String catalog,
                                 @RequestParam(value = "tag",required = false) String tag,
                                 @RequestParam(value = "status",required = false) String status){
-        return articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status);
+        return articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, null);
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
