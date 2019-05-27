@@ -17,13 +17,7 @@
 </header>
 <article>
   <aside class="l_box">
-      <div class="about_me">
-        <h2>关于我</h2>
-        <ul>
-          <i><img src="../assets/base/images/4.jpg"></i>
-          <p><b>==</b>，一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
-        </ul>
-      </div>
+      <div class="about_me" th:replace="header::aboutMe"></div>
       <!--<div class="wdxc">
         <h2>我的相册</h2>
         <ul>
@@ -67,7 +61,7 @@
   </aside>
   <main class="r_box">
     <li th:each="article:${articles.content}">
-      <!--<i><a href="/"><img src="../assets/base/images/1.jpg"></a></i>-->
+      <i><a href="/"><img th:src="${article.cover}"></a></i>
       <h3><a th:href="${'info/'+article.id}" th:text="${article.title}">你是什么人便会遇上什么人</a></h3>
       <p th:text="${article.summary}">有时就为了一句狠话，像心头一口毒钉，永远麻痺着亲密感情交流。</p>
     </li>

@@ -7,6 +7,7 @@ import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import cn.nicecoder.longtblog.service.CatalogService;
 import cn.nicecoder.longtblog.service.Impl.TagServiceImpl;
+import cn.nicecoder.longtblog.util.RegUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -35,12 +36,13 @@ public class ArticleController {
     TagServiceImpl tagService;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam(value = "title",required = true) String title,
-                               @RequestParam(value = "summary",required = true) String summary,
+    public ModelAndView create(@RequestParam(value = "title",required = false) String title,
+                               @RequestParam(value = "summary",required = false) String summary,
                                @RequestParam(value = "content",required = true) String content,
-                               @RequestParam(value = "tags",required = true) String tagStr,
+                               @RequestParam(value = "tags",required = false) String tagStr,
+                               @RequestParam(value = "cover",required = false) String cover,
                                @RequestParam(value = "type",required = true) String type,
-                               @RequestParam(value = "catalog",required = true) Long catalogId,
+                               @RequestParam(value = "catalog",required = false) Long catalogId,
                                @RequestParam(value = "status",required = false, defaultValue = "0") String status,
                                @RequestParam(value = "id",required = false) Long id){
         Catalog catalog = catalogService.findById(catalogId);
@@ -59,19 +61,31 @@ public class ArticleController {
         Article article= articleService.articleCreate(art);
 
         //关联标签
-        String tagArr[] = tagStr.split(",");
-        Set<Tag> tags = new HashSet<Tag>();
-        for(String tagName : tagArr){
-           Tag tag =  tagService.findByName(tagName);
-           if(tag == null){
-               tag = new Tag();
-               tag.setName(tagName);
-               tag = tagService.tagCreate(tag);
-           }
-           tags.add(tag);
+        if(tagStr.contains(",")) {
+            String tagArr[] = tagStr.split(",");
+            Set<Tag> tags = new HashSet<Tag>();
+            for (String tagName : tagArr) {
+                Tag tag = tagService.findByName(tagName);
+                if (tag == null) {
+                    tag = new Tag();
+                    tag.setName(tagName);
+                    tag = tagService.tagCreate(tag);
+                }
+                tags.add(tag);
+            }
+            article.setTags(tags);
         }
-        article.setTags(tags);
-        articleService.articleCreate(article);
+
+        //封面
+        if(cover == null){
+            List<String> pictures = RegUtil.getImgSrc(content.replaceAll("\"","\\\""));
+            if(pictures != null && pictures.size() > 0) {
+                article.setCover(pictures.get(0));
+            }
+        }else{
+            article.setCover(cover);
+        }
+        Article insertArt = articleService.articleCreate(article);
 
         ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
         return mv;
@@ -82,10 +96,10 @@ public class ArticleController {
     public Page<Model> search(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
                                 @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                                 @RequestParam(value = "title",required = false) String title,
-                                @RequestParam(value = "catalog",required = false) String catalog,
+                                @RequestParam(value = "catalogId",required = false) Long catalogId,
                                 @RequestParam(value = "tag",required = false) String tag,
                                 @RequestParam(value = "status",required = false) String status){
-        return articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, null);
+        return articleService.articleSearch(pageNumber, pageSize, title, catalogId, tag, status, null);
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)

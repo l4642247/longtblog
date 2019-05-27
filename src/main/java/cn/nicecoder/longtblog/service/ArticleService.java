@@ -23,11 +23,11 @@ public interface ArticleService {
      * @param pageNumber
      * @param pageSize
      * @param title
-     * @param catalog
+     * @param catalogId
      * @param status
      * @return
      */
-    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tag, String status, String type);
+    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, Long catalogId, String tag, String status, String type);
 
 
     /**

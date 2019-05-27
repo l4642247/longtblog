@@ -30,7 +30,7 @@ public interface CatalogService {
 
     /**
      * 查询
-     * @param catalog
+     * @param id
      * @return
      */
     public Catalog findById(Long id);

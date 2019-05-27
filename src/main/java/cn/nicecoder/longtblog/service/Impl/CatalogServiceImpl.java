@@ -28,6 +28,10 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public Catalog catalogCreate(Catalog catalog) {
+        Long lastSort = catalogDao.lastSort();
+        if(lastSort != null && catalog.getSort() <= lastSort){
+            catalogDao.updateSortBack(catalog.getSort());
+        }
         return catalogDao.save(catalog);
     }
 

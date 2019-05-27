@@ -5,7 +5,7 @@ spring:
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://nicecoder.cn/sh2018
+    url: jdbc:mysql://nicecoder.cn/dbdzt
     username: root
     password: Cnm.0001+
 

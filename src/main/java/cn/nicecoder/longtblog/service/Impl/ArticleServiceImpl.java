@@ -39,11 +39,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article articleCreate(Article article) {
-        return articleDao.save(article);
+        article  = articleDao.save(article);
+        catalogDao.updateCatalogCount(article.getId());
+        return article;
     }
 
     @Override
-    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, String catalog, String tagId, String status, String type) {
+    public Page<Model> articleSearch(int pageNumber, int pageSize, String title, Long catalogId, String tagId, String status, String type) {
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -52,9 +54,9 @@ public class ArticleServiceImpl implements ArticleService {
                     predicates.add(criteriaBuilder
                             .like(root.get("title"), "%" + title + "%"));
                 }
-                if(!StringUtils.isEmpty(catalog)){
+                if(!StringUtils.isEmpty(catalogId)){
                     Catalog cat = new Catalog();
-                    cat.setId(Long.parseLong(catalog));
+                    cat.setId(catalogId);
                     predicates.add(criteriaBuilder
                             .equal(root.get("catalog"), cat));
                 }

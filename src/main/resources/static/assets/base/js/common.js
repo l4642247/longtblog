@@ -22,7 +22,7 @@ function catalogInit(){
             var catalogs = result.content;
             var html = '';
             $.each(catalogs, function(i,val){
-                html += '<li><a href="index.html?catalog='+val.id+'">'+val.name+'（'+val.count+'）</a></li>';
+                html += '<li><a href="/index.html?catalogId='+val.id+'">'+val.name+'（'+val.count+'）</a></li>';
             });
             $(".fenlei ul").append(html);
         }

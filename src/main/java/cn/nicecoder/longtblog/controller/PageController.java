@@ -45,22 +45,18 @@ public class PageController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/admin.html", method = RequestMethod.GET)
-    public ModelAndView adminPage(){
-        return new ModelAndView("admin/index");
-    }
 
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
                               @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                               @RequestParam(value = "title",required = false) String title,
-                              @RequestParam(value = "catalog",required = false) String catalog,
+                              @RequestParam(value = "catalogId",required = false) Long catalogId,
                               @RequestParam(value = "tag",required = false) String tag,
                               @RequestParam(value = "status",required = false) String status){
-        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, "1");
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalogId, tag, status, "1");
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("articles", articles);
-        mv.addObject("catalog",catalog);
+        mv.addObject("catalog",catalogId);
         return mv;
     }
 
@@ -104,58 +100,5 @@ public class PageController {
     @RequestMapping(value = "/share.html", method = RequestMethod.GET)
     public ModelAndView share(){
         return new ModelAndView("share");
-    }
-
-    @RequestMapping(value = "/admin/article-edit.html", method = RequestMethod.GET)
-    public ModelAndView articleEdit(@RequestParam(value = "id",required = false) Long id){
-        ModelAndView mv = new ModelAndView("admin/article-editor");
-        Article article = new Article();
-        if(id != null) {
-            article = articleService.articleDetail(id);
-        }else{
-            article.setContent("".getBytes());
-        }
-        mv.addObject("article", article);
-        Set<Tag> tagSet= article.getTags();
-        String tags = "";
-        for(Tag t : tagSet){
-            tags += t.getName() +",";
-        }
-        mv.addObject("tags",tags);
-        Page<Catalog> list = catalogService.catalogPage(0,20);
-        mv.addObject("catalogList",list.getContent());
-        return mv;
-    }
-
-    @RequestMapping(value = "/admin/catalog-edit.html", method = RequestMethod.GET)
-    public ModelAndView catalogEdit(@RequestParam(value = "id",required = false) Long id){
-        ModelAndView mv = new ModelAndView("admin/catalog-editor");
-        Catalog catalog = new Catalog();
-        if(id != null) {
-            catalog = catalogService.findById(id);
-        }
-        mv.addObject("catalog", catalog);
-        return mv;
-    }
-
-    @RequestMapping(value = "/admin/article-table.html", method = RequestMethod.GET)
-    public ModelAndView articleTable(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
-                                     @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
-                                     @RequestParam(value = "title",required = false) String title,
-                                     @RequestParam(value = "catalog",required = false) String catalog,
-                                     @RequestParam(value = "tag",required = false) String tag,
-                                     @RequestParam(value = "status",required = false) String status){
-        Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalog, tag, status, null);
-        ModelAndView mv = new ModelAndView("admin/article-table");
-        mv.addObject("articleList",list.getContent());
-        return mv;
-    }
-
-    @RequestMapping(value = "/admin/catalog-table.html", method = RequestMethod.GET)
-    public ModelAndView articleTable(){
-        ModelAndView mv = new ModelAndView("admin/catalog-table");
-        Page<Catalog> list = catalogService.catalogPage(0,20);
-        mv.addObject("catalogList",list.getContent());
-        return mv;
     }
 }

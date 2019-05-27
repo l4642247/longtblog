@@ -355,7 +355,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">summary</label>
-                                                <textarea class="form-control" th:text="${article.title}"  name="summary" required="" aria-required="true" style="height:80px;"></textarea>
+                                                <textarea class="form-control" th:text="${article.title}"  name="summary" style="height:80px;"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">tags</label>
@@ -365,6 +365,15 @@
                                                 <label class="col-md-2 control-label">catalog</label>
                                                 <select class="select2 form-control" name="catalog">
                                                     <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" id="type">
+                                                <label class="col-md-2 control-label">type</label>
+                                                <select class="select2 form-control" name="type">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

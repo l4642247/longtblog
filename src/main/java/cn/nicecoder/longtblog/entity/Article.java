@@ -29,6 +29,7 @@ public class Article {
     private String title;
     private String author;
     private String summary;
+    private String cover;
 
     private int agree;
     private String type;
@@ -74,6 +75,14 @@ public class Article {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public Long getId() {
