@@ -62,7 +62,10 @@ public class PageController {
 
     @RequestMapping(value = "/about.html", method = RequestMethod.GET)
     public ModelAndView about(){
-        return new ModelAndView("about");
+        Page<Model> articles =  articleService.articleSearch(0, 1, null, null, null, null, "2");
+        ModelAndView mv = new ModelAndView("about");
+        mv.addObject("article", articles.getContent().get(0));
+        return mv;
     }
 
     @RequestMapping(value = "/gbook.html", method = RequestMethod.GET)
