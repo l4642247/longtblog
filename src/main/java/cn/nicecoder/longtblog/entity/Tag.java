@@ -1,6 +1,7 @@
 package cn.nicecoder.longtblog.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Author: longt
@@ -8,7 +9,9 @@ import javax.persistence.*;
  * @Description:
  */
 @Entity
-public class Tag {
+public class Tag implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

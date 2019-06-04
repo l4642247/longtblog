@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
+import javax.cache.annotation.CacheResult;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -112,6 +113,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @CacheResult(cacheName="findTop8")
     public List<Article> findTop8() {
         return articleDao.findTop8();
     }

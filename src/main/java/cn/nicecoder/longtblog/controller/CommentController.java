@@ -1,5 +1,6 @@
 package cn.nicecoder.longtblog.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.nicecoder.longtblog.entity.Comment;
 import cn.nicecoder.longtblog.entity.User;
 import cn.nicecoder.longtblog.pojo.CommentResult;
@@ -30,20 +31,34 @@ public class CommentController {
     UserService userService;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam(value = "discussid",required = true) Long discussid,
+    public ModelAndView create(@RequestParam(value = "discussid",required = false,defaultValue = "0") Long discussid,
                                @RequestParam(value = "uid",required = false) Long uid,
                                @RequestParam(value = "touid",required = false) Long touid,
-                               @RequestParam(value = "type",required = false) String type,
+                               @RequestParam(value = "type",required = true) String type,
+                               @RequestParam(value = "email",required = false) String email,
+                               @RequestParam(value = "website",required = false) String website,
                                @RequestParam(value = "name",required = true) String name,
                                @RequestParam(value = "content",required = true) String content,
                                HttpServletRequest request) throws UnsupportedEncodingException {
-        ModelAndView mv = new ModelAndView("redirect:../info/" + discussid);
+        String url = "";
+        if(discussid != 0){
+            url = "redirect:../info/" + discussid;
+        }else{
+            url = "redirect:../gbook.html";
+        }
+        ModelAndView mv = new ModelAndView(url);
         String username = IPUtil.getIpAddress(request);
         User user = userService.findByUsername(username);
         if(user == null){
             user = new User();
             user.setType("0");
             user.setUsername(username);
+        }
+        if(!ObjectUtil.isNull(email)){
+            user.setEmail(email);
+        }
+        if(!ObjectUtil.isNull(website)){
+            user.setWebsite(website);
         }
         user.setName(name);
         user.setPic("https://nicecoder.cn/imagelibrary/20190509/20190509_0930360.JPG");
@@ -58,7 +73,7 @@ public class CommentController {
 
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
-    public List<CommentResult> tagPage(@RequestParam(value = "artId",required = true) Long artId,
+    public List<CommentResult> tagPage(@RequestParam(value = "artId",required = false) Long artId,
                                        @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
                                        @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
         return commentService.commentPage(artId, pageNumber, pageSize);

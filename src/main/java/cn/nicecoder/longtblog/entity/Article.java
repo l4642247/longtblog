@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,8 @@ import java.util.Set;
  * @Description:
  */
 @Entity
-public class Article {
+public class Article implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      *     @Id
      *     @Column(name = "ID")

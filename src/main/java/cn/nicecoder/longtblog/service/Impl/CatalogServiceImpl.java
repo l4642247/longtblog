@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.cache.annotation.CacheResult;
+
 /**
  * @Author: longt
  * @Date: 2019/3/29 15:50
@@ -21,6 +23,7 @@ public class CatalogServiceImpl implements CatalogService {
     CatalogDao catalogDao;
 
     @Override
+    @CacheResult(cacheName="catalogPage")
     public Page<Catalog> catalogPage(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "sort");
         return catalogDao.findAll(pageable);

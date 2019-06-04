@@ -29,7 +29,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentResult> commentPage(Long artId, int pageNumber, int pageSize) {
         List<CommentResult> result = new ArrayList<CommentResult>();
-        List<CommentStatistic> cstatic = commentDao.findByArtId(artId,pageNumber,pageSize,"1");
+        List<CommentStatistic> cstatic = new ArrayList<CommentStatistic>();
+        if(artId != null){
+            cstatic = commentDao.findByArtId(artId,pageNumber,pageSize,"1");
+        }else{
+            cstatic = commentDao.findByArtId(pageNumber,pageSize,"0");
+        }
         cstatic.forEach(o -> {
             CommentResult comm = o.toComment();
             // 2级
