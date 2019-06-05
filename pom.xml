@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>longtblog</name>
     <description>龙甜的个人博客</description>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -111,6 +112,12 @@
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>   <!--表示生成war包的时候不要将tomcat打包进去-->
         </dependency>
 
     </dependencies>
