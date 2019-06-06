@@ -48,7 +48,7 @@ public class ArticleController {
         Catalog catalog = catalogService.findById(catalogId);
         Article art = null;
         if(id == null) {
-            art = new Article(title, summary, "longt", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
+            art = new Article(title, summary, "独白", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
         }else{
             art = articleService.articleDetail(id);
             art.setTitle(title);

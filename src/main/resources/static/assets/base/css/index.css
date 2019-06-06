@@ -2,9 +2,9 @@
 .l_box h2 { color: #333; font-size: 14px; line-height: 30px; padding-left: 20px; background: #fff }
 .l_box div { background: rgba(255,255,255,0.5); margin-bottom: 20px; overflow: hidden }
 .l_box div ul { padding: 10px; overflow: hidden }
-.about_me img { width: 100% }
+.about_me img { width: 100% ; border-radius: 3px;}
 .about_me p { line-height: 24px; font-size: 14px }
-.about_me i { width: 120px; float: left; clear: left; margin-right: 10px; height: 90px; overflow: hidden }
+.about_me i { width: 90px; float: left; clear: left; margin-right: 10px; height: 90px; overflow: hidden }
 .wdxc li { width: 32%; overflow: hidden; float: left; height: 80px; margin-bottom: 2px; margin-right: 2px }
 .wdxc li img {width: 100%; height:100%; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; transition: all 0.5s; }
 .wdxc li img:hover { transform: scale(1.05) }
@@ -54,7 +54,7 @@ a.curPage { color: #19585d; font-weight: bold; }
 .picbox ul li a:hover { color: #19585d }
 .tags a { background: #F4650E; padding: 3px 8px; margin: 0 5px 0 0; color: #fff; }
 .tags { margin: 10px 0; }
-.infosbox img { max-width: 100%; height: auto; width: 100% }
+.infosbox img { max-width: 100%; height: auto;}
 .share { padding: 20px; }
 .nextinfo { line-height: 24px; width: 100%; overflow: hidden; margin: 20px 0 }/*��һƪ��һƪ*/
 .nextinfo p { padding: 4px 10px; border-radius: 5px; }
@@ -74,7 +74,7 @@ p.fbtime { color: #000; }
     overflow: hidden;
     white-space: nowrap; }
 p.fbinfo { margin: 10px 0; }
-.fb ul { margin: 10px 10px; padding: 10px 10px 10px 70px; border-bottom: #ececec 1px solid; }
+.fb ul { margin: 10px 10px; padding: 25px 10px 20px 70px; border-bottom: #ececec 1px solid; }
 .fb:nth-child(8n-7) ul { background: url(../images/tx10.jpg) no-repeat top 20px left 10px; }
 .fb:nth-child(8n-6) ul { background: url(../images/tx9.jpg) no-repeat top 20px left 10px; }
 .fb:nth-child(8n-5) ul { background: url(../images/tx8.jpg) no-repeat top 20px left 10px; }

@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header::header"></head>
+<link href="../assets/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="../assets/layui/layui.js"></script>
 <body>
 <header class="header-navigation" id="header">
   <nav><div class="logo"><a href="/">个人博客</a></div>
@@ -58,23 +60,26 @@
       </div>-->
       <div id="comment"></div>
       <div class="gbox">
-        <form action="/comment/create" method="post" name="form1" id="form1">
+        <form action="/comment/create" method="post" name="form1" id="form1" class="layui-form">
           <input name="type" type="hidden" id="type" value="0">
           <p> <strong>来说点儿什么吧...</strong></p>
-          <p><span>昵称:</span>
-            <input name="name" type="text" id="name">
-            *</p>
-          <p><span>邮箱:</span>
-            <input name="email" type="text" id="email">
-            *</p>
-          <p><span>网站:</span>
-            <input name="website" type="text" id="website">
-          </p>
-          <p><span class="tnr">留言内容:</span>
-            <textarea name="content" cols="60" rows="12" id="lytext"></textarea>
-          </p>
+
+          <div class="layui-form-item">
+            <!--<label class="layui-form-label">昵称:</label>-->
+              <input type="text" name="name" lay-verify="required" placeholder="*昵称" autocomplete="off" class="layui-input">
+          </div>
+          <div class="layui-form-item">
+              <input type="text" name="email" lay-verify="required|email" placeholder="*邮箱" autocomplete="off" class="layui-input">
+          </div>
+          <div class="layui-form-item">
+              <input type="text" name="website" placeholder="网站" autocomplete="on" class="layui-input">
+          </div>
+          <div class="layui-form-item">
+            <textarea id="content" lay-verify="pass" name="content" class="layui-textarea"></textarea>
+          </div>
+
           <p>
-            <input type="submit" name="Submit3" value="提交">
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
           </p>
         </form>
       </div>
@@ -84,10 +89,39 @@
 <footer th:replace="footer::footer"></footer>
 <a href="#" class="cd-top">Top</a>
 <script>
+
     $(function(){
         catalogInit();
         initComment();
+
+        //编辑器部分
+        layui.use('layedit', function(){
+            layedit = layui.layedit;
+            //创建富文本
+            index = layedit.build('content',{
+                tool: ['left', 'center', 'right', '|', 'face'],
+                height: 130,
+                width: 720
+            });
+        });
     })
+
+    layui.use(['form'], function() {
+        $ = layui.$;
+        var form = layui.form;
+        form.verify({
+            pass: function(value, item){ //value：表单的值、item：表单的DOM对象
+                var content = $("#content").val();
+                if(trim(content) == ""){
+                   return ("你想说的是什么呢？");
+                }
+            }
+        });
+    });
+
+    function trim(str){
+        return (str.replace(/ /g,"")).replace(/&nbsp;/ig, "");
+    }
 
     function initComment(){
         $.ajax({

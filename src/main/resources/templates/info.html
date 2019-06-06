@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header::header"></head>
+<link href="../assets/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="../assets/layui/layui.js"></script>
 <body>
 <header class="header-navigation" id="header">
   <nav>
@@ -85,31 +87,30 @@
           </div>-->
           <div id="comment"></div>
 
-          <script>
-		  function CheckPl(obj)
-		  {
-		  if(obj.saytext.value=="")
-		  {
-		  alert("您没什么话要说吗？");
-		  obj.saytext.focus();
-		  return false;
-		  }
-		  return true;
-		  }
-		  </script>
-          <form action="/comment/create" method="post" >
+          <form action="/comment/create" method="post" class="layui-form">
             <div id="plpost">
-              <p class="saying"><span><a href="#" id="commentNum"></a></span>来说两句吧...</p>
-              <input type="hidden" name="discussid" th:value="${article.id}">
-              <input type="hidden" name="type" th:value="1">
-              <p class="yname"><span>用户名:</span>
-                <input name="name" type="text" class="inputText" id="username" value="" size="16">
+              <div class="layui-form-item">
+                <p class="saying"><span><a href="#" id="commentNum"></a></span>来说两句吧...</p>
+                <input type="hidden" name="discussid" th:value="${article.id}">
+                <input type="hidden" name="type" th:value="1">
+              </div>
+              <div class="layui-form-item">
+                <!--<label class="layui-form-label">昵称:</label>-->
+                <input type="text" name="name" lay-verify="required" placeholder="*昵称" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-item">
+                <input type="text" name="email" lay-verify="required|email" placeholder="*邮箱" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-item">
+                <input type="text" name="website" placeholder="网站" autocomplete="on" class="layui-input">
+              </div>
+              <div class="layui-form-item">
+                <textarea id="content" lay-verify="pass" name="content" class="layui-textarea"></textarea>
+              </div>
+
+              <p>
+                <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
               </p>
-              <!-- <p class="yzm"><span>验证码:</span>
-                <input name="key" type="text" class="inputText" size="16">
-              </p>-->
-              <textarea name="content" rows="6" id="saytext"></textarea>
-              <input name="imageField" type="submit" value="提交">
             </div>
           </form>
         </div>
@@ -129,7 +130,35 @@
       catalogInit();
       top8();
       click();
+
+      //编辑器部分
+      layui.use('layedit', function(){
+          layedit = layui.layedit;
+          //创建富文本
+          index = layedit.build('content',{
+              tool: ['left', 'center', 'right', '|', 'face'],
+              height: 130,
+              width: 720
+          });
+      });
   });
+
+  layui.use(['form'], function() {
+      $ = layui.$;
+      var form = layui.form;
+      form.verify({
+          pass: function(value, item){ //value：表单的值、item：表单的DOM对象
+              var content = $("#content").val();
+              if(trim(content) == ""){
+                  return ("你想说的是什么呢？");
+              }
+          }
+      });
+  });
+
+  function trim(str){
+      return (str.replace(/ /g,"")).replace(/&nbsp;/ig, "");
+  }
 
   function click(){
       var id = [[${article.id}]];
@@ -182,7 +211,7 @@
               var mun = 0;
               $.each(result, function(i, val){
                   html += '<div class="fb"><ul><p class="fbtime"><span>'+ val.createTime +'</span>'+ val.name +'</p>';
-                  html += '<p class="fbinfo">'+ val.content +'</p></ul></div>';
+                  html += '<p>'+ val.content +'</p></ul></div>';
                   mun++;
               });
               $("#comment").append(html);
