@@ -31,4 +31,9 @@ public class ClickServiceImpl implements ClickService {
         articleDao.updateClick(article.getId());
         return clickDao.save(c);
     }
+
+    @Override
+    public void deleteByArtId(Long id) {
+        clickDao.deleteByArticleId(id);
+    }
 }

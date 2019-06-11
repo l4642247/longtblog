@@ -6,7 +6,10 @@ import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import cn.nicecoder.longtblog.service.CatalogService;
+import cn.nicecoder.longtblog.service.ClickService;
+import cn.nicecoder.longtblog.service.Impl.ClickServiceImpl;
 import cn.nicecoder.longtblog.service.Impl.TagServiceImpl;
+import cn.nicecoder.longtblog.service.TagService;
 import cn.nicecoder.longtblog.util.RegUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +36,9 @@ public class ArticleController {
     @Autowired
     CatalogService catalogService;
     @Autowired
-    TagServiceImpl tagService;
+    TagService tagService;
+    @Autowired
+    ClickService clickService;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public ModelAndView create(@RequestParam(value = "title",required = false) String title,
@@ -122,6 +127,15 @@ public class ArticleController {
     @ResponseBody
     public List<Article> top8(){
         return articleService.findTop8();
+    }
+
+    @RequestMapping(value = "/article-delete", method = RequestMethod.GET)
+    public ModelAndView delete(@RequestParam(value = "id",required = true) Long id){
+        Article article = articleService.articleDetail(id);
+        clickService.deleteByArtId(id);
+        articleService.deleteArticle(article);
+        ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
+        return mv;
     }
 
 }

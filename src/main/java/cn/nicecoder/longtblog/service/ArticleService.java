@@ -58,4 +58,10 @@ public interface ArticleService {
      * @return
      */
     public List<Article> findTop8();
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void deleteArticle(Article id);
 }

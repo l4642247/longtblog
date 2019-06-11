@@ -117,4 +117,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> findTop8() {
         return articleDao.findTop8();
     }
+
+    @Override
+    public void deleteArticle(Article article) {
+        articleDao.delete(article);
+    }
 }

@@ -65,7 +65,10 @@
                                                         <td th:text="${artitle.catalog.name}"></td>
                                                         <td th:text="${artitle.click}"></td>
                                                         <td th:text="${artitle.updateTime}"></td>
-                                                        <td ><a th:href="@{'article-edit.html?id='+${artitle.id}}" >.modify</a></td>
+                                                        <td >
+                                                            <a th:href="@{'article-edit.html?id='+${artitle.id}}" >修改</a>
+                                                            <a th:href="@{'../article/article-delete?id='+${artitle.id}}" >删除</a>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
