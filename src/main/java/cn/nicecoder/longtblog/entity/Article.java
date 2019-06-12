@@ -52,7 +52,7 @@ public class Article implements Serializable {
     private Date updateTime;
 
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "catalog_id")
     @JsonBackReference
     private Catalog catalog;
@@ -65,7 +65,7 @@ public class Article implements Serializable {
     //关联到主表的外键名：主表名+下划线+主表中的主键列名,即article_id
     //关联到从表的外键名：主表中用于关联的属性名+下划线+从表的主键列名,即tag_id
     //主表就是关系维护端对应的表，从表就是关系被维护端对应的表
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="article_tag",joinColumns=@JoinColumn(name="article_id"),
             inverseJoinColumns=@JoinColumn(name="tag_id"))
     @JsonBackReference
