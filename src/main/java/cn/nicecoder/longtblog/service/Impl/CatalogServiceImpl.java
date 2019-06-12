@@ -47,4 +47,13 @@ public class CatalogServiceImpl implements CatalogService {
     public Catalog findById(Long id) {
         return catalogDao.findById(id).get();
     }
+
+    @Override
+    public void updateCount(Long id, boolean add) {
+        if(add){
+            catalogDao.updateCatalogCount(id);
+        }else{
+            catalogDao.updateCatalogCountSub(id);
+        }
+    }
 }

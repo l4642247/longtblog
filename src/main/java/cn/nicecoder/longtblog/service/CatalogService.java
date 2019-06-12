@@ -35,6 +35,13 @@ public interface CatalogService {
      */
     public Catalog findById(Long id);
 
+    /**
+     * 更新数量
+     * @param id
+     * @param add
+     */
+    public void updateCount(Long id, boolean add);
+
 
 
 }

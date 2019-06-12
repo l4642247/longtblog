@@ -50,7 +50,7 @@ public class ArticleController {
                                @RequestParam(value = "catalog",required = false) Long catalogId,
                                @RequestParam(value = "status",required = false, defaultValue = "0") String status,
                                @RequestParam(value = "id",required = false) Long id){
-        Catalog catalog = catalogService.findById(catalogId);
+
         Article art = null;
         if(id == null) {
             art = new Article(title, summary, "独白", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
@@ -62,8 +62,10 @@ public class ArticleController {
         }
         //建立双向连接，顺序很重要
         //关联类别
-        art.setCatalog(catalog);
-        Article article= articleService.articleCreate(art);
+        if(catalogId != null) {
+            Catalog catalog = catalogService.findById(catalogId);
+            art.setCatalog(catalog);
+        }
 
         //关联标签
         if(tagStr.contains(",")) {
@@ -78,19 +80,22 @@ public class ArticleController {
                 }
                 tags.add(tag);
             }
-            article.setTags(tags);
+            art.setTags(tags);
         }
 
         //封面
         if(cover == null){
             List<String> pictures = RegUtil.getImgSrc(content.replaceAll("\"","\\\""));
             if(pictures != null && pictures.size() > 0) {
-                article.setCover(pictures.get(0));
+                art.setCover(pictures.get(0));
             }
         }else{
-            article.setCover(cover);
+            art.setCover(cover);
         }
-        Article insertArt = articleService.articleCreate(article);
+        Article insertArt = articleService.articleCreate(art);
+
+        //数量加1
+        catalogService.updateCount(catalogId, true);
 
         ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
         return mv;
@@ -134,6 +139,9 @@ public class ArticleController {
         Article article = articleService.articleDetail(id);
         clickService.deleteByArtId(id);
         articleService.deleteArticle(article);
+        if(article.getCatalog() != null){
+            catalogService.updateCount(article.getCatalog().getId(), false);
+        }
         ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
         return mv;
     }

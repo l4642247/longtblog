@@ -62,7 +62,8 @@
                                                     <tr th:each="artitle:${articleList}">
                                                         <td th:text="${artitle.id}"></td>
                                                         <td th:text="${artitle.title}"></td>
-                                                        <td th:text="${artitle.catalog.name}"></td>
+                                                        <td th:if="${artitle.catalog != null}" th:text="${artitle.catalog.name}"></td>
+                                                        <td th:if="${artitle.catalog == null}"></td>
                                                         <td th:text="${artitle.click}"></td>
                                                         <td th:text="${artitle.updateTime}"></td>
                                                         <td >

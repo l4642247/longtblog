@@ -13,6 +13,11 @@ public interface CatalogDao extends JpaRepository<Catalog, Long>, JpaSpecificati
     @Query(value="update catalog set count = count + 1 where id = ?1", nativeQuery = true)
     void updateCatalogCount(Long id);
 
+    @Transactional
+    @Modifying
+    @Query(value="update catalog set count = count - 1 where id = ?1", nativeQuery = true)
+    void updateCatalogCountSub(Long id);
+
     @Query(value="select sort from catalog where sort = (select max(sort) from catalog)", nativeQuery = true)
     Long lastSort();
 

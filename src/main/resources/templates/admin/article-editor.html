@@ -42,25 +42,26 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><h3 class="panel-title">Summernote Editor</h3></div>
+                            <div class="panel-heading"><h3 class="panel-title">编辑天地</h3></div>
                             <div class="panel-body">
                                 <form role="form" action="../article/create" method="post">
                                     <input type="hidden" name="id" th:value="${article.id}">
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">title</label>
-                                        <input th:value="${article.title}" name="title" class="form-control"  placeholder="Something">
+                                        <label class="col-md-2 control-label">标题</label>
+                                        <input th:value="${article.title}" name="title" class="form-control"  placeholder="标题">
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">summary</label>
+                                        <label class="col-md-2 control-label">摘要</label>
                                         <textarea class="form-control" th:text="${article.title}"  name="summary" style="height:80px;"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">tags</label>
+                                        <label class="col-md-2 control-label">标签</label>
                                         <input name="tags" th:value="${tags}" id="tags" class="form-control" value="admin,dashboard,xyz">
                                     </div>
                                     <div class="form-group" id="catalogList">
-                                        <label class="col-md-2 control-label">catalog</label>
+                                        <label class="col-md-2 control-label">目录</label>
                                         <select class="select2 form-control" name="catalog">
+                                            <option value="">请选择</option>
                                             <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
                                         </select>
                                     </div>
@@ -68,15 +69,15 @@
                                     <div class="form-group" id="type">
                                         <label class="col-md-2 control-label">type</label>
                                         <select class="select2 form-control" name="type">
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            <option value="0">日记</option>
+                                            <option value="1">文章</option>
+                                            <option value="2">关于我</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <textarea th:utext="${article.content}" class="summernote" name="content">Hello Summernote</textarea>
+                                        <textarea th:utext="${article.content}" class="summernote" name="content">写点什么吧...</textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-purple waves-effect waves-light">Submit</button>
+                                    <button type="submit" class="btn btn-purple waves-effect waves-light">立即提交</button>
                                 </form>
 
 

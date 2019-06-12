@@ -41,7 +41,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article articleCreate(Article article) {
         article  = articleDao.save(article);
-        catalogDao.updateCatalogCount(article.getId());
         return article;
     }
 
@@ -121,5 +120,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteArticle(Article article) {
         articleDao.delete(article);
+        if(article.getCatalog() != null) {
+            catalogDao.updateCatalogCountSub(article.getCatalog().getId());
+        }
     }
 }
