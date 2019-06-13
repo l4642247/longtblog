@@ -27,7 +27,6 @@ public class Comment implements Serializable {
 
     private Long touserid;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 

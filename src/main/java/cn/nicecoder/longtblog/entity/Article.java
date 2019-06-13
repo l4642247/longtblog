@@ -43,14 +43,11 @@ public class Article implements Serializable {
     private Long   click;
     private String status;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-
 
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "catalog_id")

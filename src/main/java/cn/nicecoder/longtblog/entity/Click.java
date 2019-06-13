@@ -21,7 +21,6 @@ public class Click implements Serializable {
     private Long id;
     private String type;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 

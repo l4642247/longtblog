@@ -122,6 +122,8 @@
 <a href="#" class="cd-top">Top</a>
 
 <script>
+  var layedit;
+  var index;
   $(function(){
       initNextInfo();
       initArtTags();
@@ -148,7 +150,7 @@
       var form = layui.form;
       form.verify({
           pass: function(value, item){ //value：表单的值、item：表单的DOM对象
-              var content = $("#content").val();
+              var content = layedit.getContent(index);;
               if(trim(content) == ""){
                   return ("你想说的是什么呢？");
               }
@@ -210,7 +212,8 @@
               var html = '';
               var mun = 0;
               $.each(result, function(i, val){
-                  html += '<div class="fb"><ul><p class="fbtime"><span>'+ val.createTime +'</span>'+ val.name +'</p>';
+                  var time = new Date(val.createTime);
+                  html += '<div class="fb"><ul><p class="fbtime"><span>'+ dateDiff( time.getTime()) +'</span>'+ val.name +'</p>';
                   html += '<p>'+ val.content +'</p></ul></div>';
                   mun++;
               });

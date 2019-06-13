@@ -25,7 +25,6 @@ public class Agree  implements Serializable {
 
     private Long userid;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date pudate;
 
