@@ -51,10 +51,12 @@
       </ul>
     </div>
   </aside>
-  <main class="r_box">
+  <main class="r_box_list">
       <li th:each="article:${articles.content}">
+          <p class="time line"></p>
+          <p class="line"><img src="../assets/base/images/head.jpg"/><b>独白</b></p>
+          <p th:text="${#dates.format(article.createTime ,'MM月dd日 hh:mm')}"></p>
           <div th:utext="${article.content}"></div>
-          <p class="time" th:text="${'发表于：'+ #dates.format(article.createTime ,'yyyy年MM月dd日')}"></p>
       </li>
   </main>
 </article>
