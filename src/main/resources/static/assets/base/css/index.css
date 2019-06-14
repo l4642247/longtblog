@@ -21,7 +21,7 @@
 .r_box li h3 a:hover { color: #000; text-decoration: underline }
 .r_box li img { float: right; clear: right; width: 100%; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; transition: all 0.5s; }
 .r_box li i { width: 150px; display: block; max-height: 100px; overflow: hidden; float: right; margin-left: 20px }
-.r_box li p {float: right; width:50%; line-height: 22px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; }
+.r_box li p { line-height: 22px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; }
 .r_box li:hover img { transform: scale(1.05) }
 .r_box li:hover h3 a { color: #19585d; }
 .pagelist { text-align: center; color: #666; width: 100%; clear: both; margin: 20px 0; padding-top: 20px }
@@ -102,11 +102,12 @@ textarea#saytext { width: 100%; }
 
 
 /**me**/
- .r_box_list li { background: rgba(255,255,255,0.8); padding: 15px; overflow: hidden; color: #797b7c; margin-bottom: 20px }
+ .r_box_list li { background: rgba(255,255,255,0.8); padding: 15px; overflow: hidden; color: #797b7c; margin-bottom: 20px; border-radius: 5px; }
  .r_box_list li h3 { font-size: 16px; line-height: 25px; text-shadow: #FFF 1px 1px 1px }
  .r_box_list li h3 a { color: #222 }
  .r_box_list li h3 a:hover { color: #000; text-decoration: underline }
- .r_box_list li img{ float: left; width: 50px; border-radius: 5px; margin-right: 10px;}
- .r_box_list .time{ width: 50%; float: right;}
- .r_box_list div{padding-left:60px;}
+ .r_box_list li img{ float: left; width: 50px; border-radius: 5px; margin-right: 10px; max-width: 100%;}
+ .r_box_list .rightp{ width: 50%; float: right;}
+ .r_box_list div{padding-left:60px; padding-top:10px;}
  .r_box_list .line{display:block; line-height: 25px; height: 30px;}
+ .r_box_list .time{font-size: 14px; text-align: left}

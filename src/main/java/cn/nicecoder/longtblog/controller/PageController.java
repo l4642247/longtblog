@@ -64,7 +64,9 @@ public class PageController {
     public ModelAndView about(){
         Page<Model> articles =  articleService.articleSearch(0, 1, null, null, null, null, "2");
         ModelAndView mv = new ModelAndView("about");
-        mv.addObject("article", articles.getContent().get(0));
+        if(articles.getContent().size() > 0) {
+            mv.addObject("article", articles.getContent().get(0));
+        }
         return mv;
     }
 

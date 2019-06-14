@@ -59,16 +59,16 @@
                                                     </thead>
 
                                                     <tbody>
-                                                    <tr th:each="artitle:${articleList}">
-                                                        <td th:text="${artitle.id}"></td>
-                                                        <td th:text="${artitle.title}"></td>
-                                                        <td th:if="${artitle.catalog != null}" th:text="${artitle.catalog.name}"></td>
-                                                        <td th:if="${artitle.catalog == null}"></td>
-                                                        <td th:text="${artitle.click}"></td>
-                                                        <td th:text="${artitle.updateTime}"></td>
+                                                    <tr th:each="article:${articleList}">
+                                                        <td th:text="${article.id}"></td>
+                                                        <td th:text="${article.title}"></td>
+                                                        <td th:if="${article.catalog != null}" th:text="${article.catalog.name}"></td>
+                                                        <td th:if="${article.catalog == null}" ></td>
+                                                        <td th:text="${article.click}"></td>
+                                                        <td th:text="${#dates.format(article.updateTime ,'yyyy年MM月dd日 HH:mm:ss')}"></td>
                                                         <td >
-                                                            <a th:href="@{'article-edit.html?id='+${artitle.id}}" >修改</a>
-                                                            <a th:href="@{'../article/article-delete?id='+${artitle.id}}" >删除</a>
+                                                            <a th:href="@{'article-edit.html?id='+${article.id}}" >修改</a>
+                                                            <a th:if="${article.type != '2'}" th:href="@{'../article/article-delete?id='+${article.id}}" >删除</a>
                                                         </td>
                                                     </tr>
                                                     </tbody>

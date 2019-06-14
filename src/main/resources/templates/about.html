@@ -52,8 +52,7 @@
     </div>
   </aside>
   <main class="r_box">
-     <div class="about" th:utext="${article.content}">
-
+     <div class="about" th:if="${article != null}" th:utext="${article.content}">
      </div>
   </main>
 </article>

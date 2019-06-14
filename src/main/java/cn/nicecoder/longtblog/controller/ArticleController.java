@@ -53,6 +53,11 @@ public class ArticleController {
 
         Article art = null;
         if(id == null) {
+            if("0".equals(type)){
+                title="日记";
+            }else if("0".equals(type)){
+                title="关于我";
+            }
             art = new Article(title, summary, "独白", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
         }else{
             art = articleService.articleDetail(id);
