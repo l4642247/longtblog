@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,7 +74,7 @@ public class ArticleController {
         }
 
         //关联标签
-        if(tagStr.contains(",")) {
+        if(!StringUtils.isEmpty(tagStr)) {
             String tagArr[] = tagStr.split(",");
             Set<Tag> tags = new HashSet<Tag>();
             for (String tagName : tagArr) {
