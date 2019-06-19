@@ -53,12 +53,13 @@ public class ArticleController {
                                @RequestParam(value = "id",required = false) Long id){
 
         Article art = null;
+        if("0".equals(type)){
+            title="日记";
+        }else if("0".equals(type)){
+            title="关于我";
+        }
+
         if(id == null) {
-            if("0".equals(type)){
-                title="日记";
-            }else if("0".equals(type)){
-                title="关于我";
-            }
             art = new Article(title, summary, "独白", content.getBytes(), 0l, status, new Date(), new Date(), 0, type);
         }else{
             art = articleService.articleDetail(id);
@@ -145,9 +146,6 @@ public class ArticleController {
         Article article = articleService.articleDetail(id);
         clickService.deleteByArtId(id);
         articleService.deleteArticle(article);
-        if(article.getCatalog() != null){
-            catalogService.updateCount(article.getCatalog().getId(), false);
-        }
         ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
         return mv;
     }

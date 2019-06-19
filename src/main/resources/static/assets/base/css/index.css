@@ -106,8 +106,9 @@ textarea#saytext { width: 100%; }
  .r_box_list li h3 { font-size: 16px; line-height: 25px; text-shadow: #FFF 1px 1px 1px }
  .r_box_list li h3 a { color: #222 }
  .r_box_list li h3 a:hover { color: #000; text-decoration: underline }
- .r_box_list li img{ float: left; width: 50px; border-radius: 5px; margin-right: 10px; max-width: 100%;}
+ .r_box_list li img{ float: left; width: 50px; margin-right: 10px; max-width: 100%; border-radius: 5px;}
  .r_box_list .rightp{ width: 50%; float: right;}
  .r_box_list div{padding-left:60px; padding-top:10px;}
  .r_box_list .line{display:block; line-height: 25px; height: 30px;}
+ .r_box_list .line img{border-radius: 25px;}
  .r_box_list .time{font-size: 14px; text-align: left}
