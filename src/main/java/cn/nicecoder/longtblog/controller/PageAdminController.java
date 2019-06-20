@@ -40,9 +40,27 @@ public class PageAdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/article-edit.html", method = RequestMethod.GET)
-    public ModelAndView articleEdit(@RequestParam(value = "id",required = false) Long id){
-        ModelAndView mv = new ModelAndView("admin/article-editor");
+    @RequestMapping(value = "/admin/home/homepage.html", method = RequestMethod.GET)
+    public ModelAndView homepage(){
+        ModelAndView mv = new ModelAndView("admin/home/homepage");
+        return mv;
+    }
+
+    @RequestMapping(value = "/admin/home/console.html", method = RequestMethod.GET)
+    public ModelAndView console(){
+        ModelAndView mv = new ModelAndView("admin/home/console");
+        return mv;
+    }
+
+    @RequestMapping(value = "/admin/app/content/tagsform.html", method = RequestMethod.GET)
+    public ModelAndView tagsform(){
+        ModelAndView mv = new ModelAndView("app/content/tagsform");
+        return mv;
+    }
+
+    @RequestMapping(value = "/admin/app/content/listform.html", method = RequestMethod.GET)
+    public ModelAndView listform(@RequestParam(value = "id",required = false) Long id){
+        ModelAndView mv = new ModelAndView("admin/app/content/listform");
         Article article = new Article();
         if(id != null) {
             article = articleService.articleDetail(id);
@@ -72,22 +90,22 @@ public class PageAdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/article-table.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/app/content/list.html", method = RequestMethod.GET)
     public ModelAndView articleTable(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
                                      @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
                                      @RequestParam(value = "title",required = false) String title,
-                                         @RequestParam(value = "catalogId",required = false) Long catalogId,
-                                         @RequestParam(value = "tag",required = false) String tag,
+                                     @RequestParam(value = "catalogId",required = false) Long catalogId,
+                                     @RequestParam(value = "tag",required = false) String tag,
                                      @RequestParam(value = "status",required = false) String status){
         Page<Model> list = articleService.articleSearch(pageNumber, pageSize, title, catalogId, tag, status, null);
-        ModelAndView mv = new ModelAndView("admin/article-table");
+        ModelAndView mv = new ModelAndView("admin/app/content/list");
         mv.addObject("articleList",list.getContent());
         return mv;
     }
 
-    @RequestMapping(value = "/admin/catalog-table.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/app/content/catalog.html", method = RequestMethod.GET)
     public ModelAndView articleTable(){
-        ModelAndView mv = new ModelAndView("admin/catalog-table");
+        ModelAndView mv = new ModelAndView("admin/app/content/tags");
         Page<Catalog> list = catalogService.catalogPage(0,20);
         mv.addObject("catalogList",list.getContent());
         return mv;

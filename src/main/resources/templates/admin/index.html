@@ -1,460 +1,198 @@
+
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="admin/header::header"></head>
+<html>
 
+<head>
+  <meta charset="utf-8">
+  <title>后台管理模板</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+</head>
 
-    <body class="fixed-left">
-        
-        <!-- Begin page -->
-        <div id="wrapper">
-        
-            <!-- Top Bar Start -->
-            <div th:replace="admin/header::topbar"></div>
-            <!-- Top Bar End -->
+<body class="layui-layout-body">
+  
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layadmin-flexible" lay-unselect>
+            <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+              <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;" layadmin-event="refresh" title="刷新">
+              <i class="layui-icon layui-icon-refresh-3"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+          
+          <li class="layui-nav-item" lay-unselect>
+            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+              <i class="layui-icon layui-icon-notice"></i>  
+              
+              <!-- 如果有新消息，则显示小圆点 -->
+              <span class="layui-badge-dot"></span>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="fullscreen">
+              <i class="layui-icon layui-icon-screen-full"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;">
+              <cite>独白</cite>
+            </a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+              <hr>
+              <dd style="text-align: center;"><a>退出</a></dd>
+            </dl>
+          </li>
+          
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" ><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+          <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+            <a href="javascript:;" ><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- 侧边菜单 -->
+      <div class="layui-side layui-side-menu">
+        <div class="layui-side-scroll">
+          <div class="layui-logo" lay-href="home/console.html">
+            <span>后台管理系统</span>
+          </div>
+          
+          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+            <li data-name="home" class="layui-nav-item layui-nav-itemed">
+              <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                <i class="layui-icon layui-icon-home"></i>
+                <cite>主页</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console" class="layui-this">
+                  <a lay-href="home/console.html">欢迎光临</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="home/homepage.html">今日信息</a>
+                </dd>
+              </dl>
+            </li>
 
-            <!-- ========== Left Sidebar Start ========== -->
-            <div th:replace="admin/header::leftSide"></div>
-            <!-- Left Sidebar End --> 
+            <li data-name="cpntent" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                <i class="layui-icon layui-icon-file"></i>
+                <cite>内容管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="list"><a lay-href="app/content/list.html">文章列表</a></dd>
+                <dd data-name="tags"><a lay-href="app/content/catalog.html">分类管理</a></dd>
+                <dd data-name="comment"><a lay-href="app/content/comment.html">评论管理</a></dd>
+              </dl>
+            </li>
 
+            <li data-name="user" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="用户" lay-direction="2">
+                <i class="layui-icon layui-icon-user"></i>
+                <cite>用户</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd>
+                  <a lay-href="user/user/list.html">网站用户</a>
+                </dd>
+                <dd>
+                  <a lay-href="user/administrators/list.html">后台管理员</a>
+                </dd>
+                <dd>
+                  <a lay-href="user/administrators/role.html">角色管理</a>
+                </dd>
+              </dl>
+            </li>
 
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->                      
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container">
-
-                        <!-- Page-Title -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Welcome !</h4>
-                                <ol class="breadcrumb pull-right">
-                                    <li><a href="#">Moltran</a></li>
-                                    <li class="active">Dashboard</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <!-- Start Widget -->
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-lg-3">
-                                <div class="mini-stat clearfix bx-shadow bg-info">
-                                    <span class="mini-stat-icon"><i class="ion-social-usd"></i></span>
-                                    <div class="mini-stat-info text-right">
-                                        <span class="counter">15852</span>
-                                        Total Sales
-                                    </div>
-                                    <div class="tiles-progress">
-                                        <div class="m-t-20">
-                                            <h5 class="text-uppercase text-white m-0">Last week's Sales <span class="pull-right">235</span></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-lg-3">
-                                <div class="mini-stat clearfix bg-purple bx-shadow">
-                                    <span class="mini-stat-icon"><i class="ion-ios7-cart"></i></span>
-                                    <div class="mini-stat-info text-right">
-                                        <span class="counter">956</span>
-                                        New Orders
-                                    </div>
-                                    <div class="tiles-progress">
-                                        <div class="m-t-20">
-                                            <h5 class="text-uppercase text-white m-0">Last week's Orders <span class="pull-right">59</span></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 col-sm-6 col-lg-3">
-                                <div class="mini-stat clearfix bg-success bx-shadow">
-                                    <span class="mini-stat-icon"><i class="ion-eye"></i></span>
-                                    <div class="mini-stat-info text-right">
-                                        <span class="counter">20544</span>
-                                        Unique Visitors
-                                    </div>
-                                    <div class="tiles-progress">
-                                        <div class="m-t-20">
-                                            <h5 class="text-uppercase text-white m-0">Last month's Visitors <span class="pull-right">1026</span></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-6 col-lg-3">
-                                <div class="mini-stat clearfix bg-primary bx-shadow">
-                                    <span class="mini-stat-icon"><i class="ion-android-contacts"></i></span>
-                                    <div class="mini-stat-info text-right">
-                                        <span class="counter">5210</span>
-                                        New Users
-                                    </div>
-                                    <div class="tiles-progress">
-                                        <div class="m-t-20">
-                                            <h5 class="text-uppercase text-white m-0">Last month's Users <span class="pull-right">136</span></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                        <!-- End row-->
-
-
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="portlet"><!-- /portlet heading -->
-                                    <div class="portlet-heading">
-                                        <h3 class="portlet-title text-dark text-uppercase">
-                                            Website Stats
-                                        </h3>
-                                        <div class="portlet-widgets">
-                                            <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-                                            <span class="divider"></span>
-                                            <a data-toggle="collapse" data-parent="#accordion1" href="#portlet1"><i class="ion-minus-round"></i></a>
-                                            <span class="divider"></span>
-                                            <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div id="portlet1" class="panel-collapse collapse in">
-                                        <div class="portlet-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="website-stats" style="position: relative;height: 320px"></div>
-                                                    <div class="row text-center m-t-30">
-                                                        <div class="col-sm-4">
-                                                            <h4 class="counter">86,956</h4>
-                                                            <small class="text-muted"> Weekly Report</small>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <h4 class="counter">86,69</h4>
-                                                            <small class="text-muted">Monthly Report</small>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <h4 class="counter">948,16</h4>
-                                                            <small class="text-muted">Yearly Report</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- /Portlet -->
-                            </div> <!-- end col -->
-
-                            <div class="col-lg-4">
-                                <div class="portlet"><!-- /portlet heading -->
-                                    <div class="portlet-heading">
-                                        <h3 class="portlet-title text-dark text-uppercase">
-                                            Selling Stats
-                                        </h3>
-                                        <div class="portlet-widgets">
-                                            <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-                                            <span class="divider"></span>
-                                            <a data-toggle="collapse" data-parent="#accordion1" href="#portlet2"><i class="ion-minus-round"></i></a>
-                                            <span class="divider"></span>
-                                            <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div id="portlet2" class="panel-collapse collapse in">
-                                        <div class="portlet-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="pie-chart">
-                                                        <div id="pie-chart-container" class="flot-chart" style="height: 320px">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row text-center m-t-30">
-                                                        <div class="col-sm-6">
-                                                            <h4 class="counter">86,956</h4>
-                                                            <small class="text-muted"> Weekly Report</small>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <h4 class="counter">86,69</h4>
-                                                            <small class="text-muted">Monthly Report</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- /Portlet -->
-                            </div> <!-- end col -->
-                        </div> <!-- End row -->
-
-
-                        <div class="row">
-                            <!-- INBOX -->
-                            <div class="col-lg-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">Inbox</h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="inbox-widget nicescroll mx-box">
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-1.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Chadengle</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">13:40 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Tomaslau</p>
-                                                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                                                    <p class="inbox-item-date">13:34 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Stillnotdavid</p>
-                                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                                    <p class="inbox-item-date">13:17 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Kurafire</p>
-                                                    <p class="inbox-item-text">Nice to meet you</p>
-                                                    <p class="inbox-item-date">12:20 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Shahedk</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">10:15 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Adhamdannaway</p>
-                                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                                    <p class="inbox-item-date">9:56 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-8.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Arashasghari</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">10:15 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-9.jpg" class="img-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Joshaustin</p>
-                                                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                                                    <p class="inbox-item-date">9:56 AM</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- end col -->
-
-                            <!-- CHAT -->
-                            <div class="col-lg-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"> 
-                                        <h3 class="panel-title">Chat</h3> 
-                                    </div> 
-                                    <div class="panel-body"> 
-                                        <div class="chat-conversation">
-                                            <ul class="conversation-list nicescroll">
-                                                <li class="clearfix">
-                                                    <div class="chat-avatar">
-                                                        <img src="assets/images/avatar-1.jpg" alt="male">
-                                                        <i>10:00</i>
-                                                    </div>
-                                                    <div class="conversation-text">
-                                                        <div class="ctext-wrap">
-                                                            <i>John Deo</i>
-                                                            <p>
-                                                                Hello!
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="clearfix odd">
-                                                    <div class="chat-avatar">
-                                                        <img src="assets/images/users/avatar-5.jpg" alt="Female">
-                                                        <i>10:01</i>
-                                                    </div>
-                                                    <div class="conversation-text">
-                                                        <div class="ctext-wrap">
-                                                            <i>Smith</i>
-                                                            <p>
-                                                                Hi, How are you? What about our next meeting?
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="clearfix">
-                                                    <div class="chat-avatar">
-                                                        <img src="assets/images/avatar-1.jpg" alt="male">
-                                                        <i>10:01</i>
-                                                    </div>
-                                                    <div class="conversation-text">
-                                                        <div class="ctext-wrap">
-                                                            <i>John Deo</i>
-                                                            <p>
-                                                                Yeah everything is fine
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="clearfix odd">
-                                                    <div class="chat-avatar">
-                                                        <img src="assets/images/users/avatar-5.jpg" alt="male">
-                                                        <i>10:02</i>
-                                                    </div>
-                                                    <div class="conversation-text">
-                                                        <div class="ctext-wrap">
-                                                            <i>Smith</i>
-                                                            <p>
-                                                                Wow that's great
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div class="row">
-                                                <div class="col-sm-9 chat-inputbar">
-                                                    <input type="text" class="form-control chat-input" placeholder="Enter your text">
-                                                </div>
-                                                <div class="col-sm-3 chat-send">
-                                                    <button type="submit" class="btn btn-info btn-block waves-effect waves-light">Send</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div> <!-- end col-->
-
-
-                            <!-- TODOs -->
-                            <div class="col-lg-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"> 
-                                        <h3 class="panel-title">Todo</h3> 
-                                    </div> 
-                                    <div class="panel-body todoapp"> 
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <h4 id="todo-message"><span id="todo-remaining"></span> of <span id="todo-total"></span> remaining</h4> 
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <a href="" class="pull-right btn btn-primary btn-sm waves-effect waves-light" id="btn-archive">Archive</a>
-                                            </div>
-                                        </div>
-
-                                        <ul class="list-group no-margn nicescroll todo-list" style="max-height: 288px" id="todo-list"></ul>
-
-                                         <form name="todo-form" id="todo-form" role="form" class="m-t-20">
-                                            <div class="row">
-                                                <div class="col-sm-9 todo-inputbar">
-                                                    <input type="text" id="todo-input-text" name="todo-input-text" class="form-control" placeholder="Add new todo">
-                                                </div>
-                                                <div class="col-sm-3 todo-send">
-                                                    <button class="btn-primary btn-block btn waves-effect waves-light" type="button" id="todo-btn-submit">Add</button>
-                                                </div>
-                                            </div>
-                                        </form> 
-                                    </div> 
-                                </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-
-                    </div> <!-- container -->
-                               
-                </div> <!-- content -->
-
-                <footer th:replace="admin/footer::footer"></footer>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-
-            <!-- Right Sidebar -->
-            <div th:replace="admin/header::sideBar"></div>
-            <!-- /Right-bar -->
-
+            <li data-name="set" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="设置" lay-direction="2">
+                <i class="layui-icon layui-icon-set"></i>
+                <cite>设置</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd class="layui-nav-itemed">
+                  <a href="javascript:;">系统设置</a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="set/system/website.html">网站设置</a></dd>
+                    <dd><a lay-href="set/system/email.html">邮件服务</a></dd>
+                  </dl>
+                </dd>
+                <dd class="layui-nav-itemed">
+                  <a href="javascript:;">我的设置</a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                    <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+                  </dl>
+                </dd>
+              </dl>
+            </li>
+           
+          </ul>
         </div>
-        <!-- END wrapper -->
+      </div>
 
+      <!-- 页面标签 -->
+      <div class="layadmin-pagetabs" id="LAY_app_tabs">
+        <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-down">
+          <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+            <li class="layui-nav-item" lay-unselect>
+              <a href="javascript:;"></a>
+              <dl class="layui-nav-child layui-anim-fadein">
+                <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+          <ul class="layui-tab-title" id="LAY_app_tabsheader">
+            <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+          </ul>
+        </div>
+      </div>
+      
+      
+      <!-- 主体内容 -->
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layadmin-tabsbody-item layui-show">
+          <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+        </div>
+      </div>
+      
+      <!-- 辅助元素，一般用于移动设备下遮罩 -->
+      <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+  </div>
 
-    
-        <script>
-            var resizefunc = [];
-        </script>
-
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <script src="../assets/js/detect.js"></script>
-        <script src="../assets/js/fastclick.js"></script>
-        <script src="../assets/js/jquery.slimscroll.js"></script>
-        <script src="../assets/js/jquery.blockUI.js"></script>
-        <script src="../assets/js/waves.js"></script>
-        <script src="../assets/js/wow.min.js"></script>
-        <script src="../assets/js/jquery.nicescroll.js"></script>
-        <script src="../assets/js/jquery.scrollTo.min.js"></script>
-
-        <script src="../assets/js/jquery.app.js"></script>
-
-        <!-- moment js  -->
-        <script src="../assets/plugins/moment/moment.js"></script>
-        
-        <!-- counters  -->
-        <script src="../assets/plugins/waypoints/lib/jquery.waypoints.js"></script>
-        <script src="../assets/plugins/counterup/jquery.counterup.min.js"></script>
-        
-        <!-- sweet alert  -->
-        <script src="../assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
-        
-        
-        <!-- flot Chart -->
-        <script src="../assets/plugins/flot-chart/jquery.flot.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.time.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.tooltip.min.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.resize.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.pie.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.selection.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.stack.js"></script>
-        <script src="../assets/plugins/flot-chart/jquery.flot.crosshair.js"></script>
-
-        <!-- todos app  -->
-        <script src="../assets/pages/jquery.todo.js"></script>
-        
-        <!-- chat app  -->
-        <script src="../assets/pages/jquery.chat.js"></script>
-        
-        <!-- dashboard  -->
-        <script src="../assets/pages/jquery.dashboard.js"></script>
-        
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('.counter').counterUp({
-                    delay: 100,
-                    time: 1200
-                });
-            });
-        </script>
-
-    
-    </body>
+  <script src="../layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use('index');
+  </script>
+  
+</body>
 </html>
+
+
