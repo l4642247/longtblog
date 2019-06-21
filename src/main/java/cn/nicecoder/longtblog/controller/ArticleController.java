@@ -104,7 +104,7 @@ public class ArticleController {
         //数量加1
         catalogService.updateCount(catalogId, true);
 
-        ModelAndView mv = new ModelAndView("redirect:/admin/article-table.html");
+        ModelAndView mv = new ModelAndView("redirect:/admin/app/content/list.html");
         return mv;
     }
 

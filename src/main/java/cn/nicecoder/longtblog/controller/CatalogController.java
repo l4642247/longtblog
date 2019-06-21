@@ -25,7 +25,7 @@ public class CatalogController {
             catalog.setId(id);
         }
         catalogService.catalogCreate(catalog);
-        ModelAndView mv = new ModelAndView("redirect:/admin/catalog-table.html");
+        ModelAndView mv = new ModelAndView("redirect:/admin/app/content/catalog.html");
         return mv;
     }
 

@@ -45,7 +45,7 @@
 
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" lay-href="app/content/listform.html">写文章</button>
+          <button class="layui-btn layuiadmin-btn-list" onclick="javascript:location.href='listform.html'">写文章</button>
         </div>
 
         <table class="layui-table" lay-even lay-skin="nob">
@@ -71,11 +71,11 @@
             <td th:if="${article.catalog == null}" ></td>
             <td th:if="${article.catalog != null}" th:text="${article.catalog.name}"></td>
             <td th:text="${article.title}"></td>
-            <td h:text="${#dates.format(article.updateTime ,'yyyy年MM月dd日 HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(article.updateTime ,'yyyy年MM月dd日 HH:mm:ss')}"></td>
             <td th:text="${article.status}"></td>
             <td th:text="${article.click}"></td>
             <td >
-              <a th:href="@{'article-edit.html?id='+${article.id}}" >修改</a>
+              <a th:href="@{'listform.html?id='+${article.id}}" >修改</a>
               <a th:if="${article.type != '2'}" th:href="@{'../article/article-delete?id='+${article.id}}" >删除</a>
             </td>
           </tr>

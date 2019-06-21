@@ -22,5 +22,5 @@ public interface CommentService {
      * @param pageSize
      * @return
      */
-    public List<CommentResult> commentPage(Long artId, int pageNumber, int pageSize);
+    public List<CommentResult> commentPage(boolean condition, Long artId, int pageNumber, int pageSize);
 }

@@ -4,6 +4,7 @@ import cn.nicecoder.longtblog.entity.Catalog;
 import cn.nicecoder.longtblog.entity.Tag;
 import cn.nicecoder.longtblog.service.ArticleService;
 import cn.nicecoder.longtblog.service.CatalogService;
+import cn.nicecoder.longtblog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class PageAdminController {
 
     @Autowired
     ArticleService articleService;
+
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView index(){
@@ -52,9 +56,11 @@ public class PageAdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/app/content/tagsform.html", method = RequestMethod.GET)
-    public ModelAndView tagsform(){
-        ModelAndView mv = new ModelAndView("app/content/tagsform");
+    @RequestMapping(value = "/admin/app/content/comment.html", method = RequestMethod.GET)
+    public ModelAndView comment(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
+                                @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
+                                @RequestParam(value = "status",required = false) String status){
+        ModelAndView mv = new ModelAndView("admin/app/content/comment");
         return mv;
     }
 
@@ -79,9 +85,9 @@ public class PageAdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/catalog-edit.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/app/content/tagsform.html", method = RequestMethod.GET)
     public ModelAndView catalogEdit(@RequestParam(value = "id",required = false) Long id){
-        ModelAndView mv = new ModelAndView("admin/catalog-editor");
+        ModelAndView mv = new ModelAndView("admin/app/content/tagsform");
         Catalog catalog = new Catalog();
         if(id != null) {
             catalog = catalogService.findById(id);

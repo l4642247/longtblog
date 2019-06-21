@@ -9,6 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+
+  <link href="../../../summernote/dist/summernote.css" rel="stylesheet">
+  <link href="../../../tagsinput/jquery.tagsinput.css" rel="stylesheet">
+  <link href="../../../assets/base/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,38 +23,48 @@
         <div class="layui-card-header">编辑文章</div>
         <div class="layui-card-body" pad15>
 
-          <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+          <form class="layui-form" action="/article/create" method="post">
             <div class="layui-form-item">
-              <label class="layui-form-label">文章标题</label>
-              <div class="layui-input-inline">
-                <input type="text" name="title" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+              <label class="layui-form-label">标题</label>
+              <div class="layui-input-block">
+                <input type="text" name="title"  placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <div class="layui-form-item">
+              <label class="layui-form-label">摘要</label>
+              <div class="layui-input-block">
+                <textarea th:utext="${article.summary}"  class="layui-textarea" name="summary">写点什么吧...</textarea>
               </div>
             </div>
 
             <div class="layui-form-item">
               <label class="layui-form-label">内容</label>
-              <div class="layui-input-inline">
-                <textarea th:utext="${article.content}" class="summernote" name="content">写点什么吧...</textarea>
+              <div class="layui-input-block">
+                <textarea th:utext="${article.content}" style="width: 400px; height: 100px;" class="summernote layui-textarea" name="content">写点什么吧...</textarea>
               </div>
             </div>
 
             <div class="layui-form-item">
               <label class="layui-form-label">标签</label>
-              <div class="layui-input-inline">
+              <div class="layui-input-block">
                 <input name="tags" th:value="${tags}" id="tags"  value="admin,dashboard,xyz">
               </div>
             </div>
+
             <div class="layui-form-item">
               <label class="layui-form-label">目录</label>
-              <div class="layui-input-inline">
-                <select name="catalog" lay-verify="required">
+              <div class="layui-input-block">
+                <select name="catalog" >
+                  <option value="">请选择</option>
                   <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
                 </select>
               </div>
             </div>
+
             <div class="layui-form-item">
               <label class="layui-form-label">类型</label>
-              <div class="layui-input-inline">
+              <div class="layui-input-block">
                 <select name="type" lay-verify="required">
                   <option value="0">日记</option>
                   <option value="1">文章</option>
@@ -58,24 +72,21 @@
                 </select>
               </div>
             </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">摘要</label>
-              <div class="layui-input-inline">
-                <textarea name="summary" lay-verify="required" style="width: 400px; height: 100px;" autocomplete="off" class="layui-textarea"></textarea>
-              </div>
-            </div>
-            <div class="layui-form-item">
+
+            <div class="layui-form-item layui-form-text">
               <label class="layui-form-label">发布状态</label>
-              <div class="layui-input-inline">
+              <div class="layui-input-block">
                 <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="已发布|待修改">
               </div>
             </div>
 
-            <div class="layui-form-item layui-hide">
-              <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
-              <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <input type="submit" class="layui-btn"/>
+                <a class="layui-btn layuiadmin-btn-list" href="#" onClick="javascript :history.back(-1);">取消</a>
+              </div>
             </div>
-          </div>
+          </form>
 
         </div>
       </div>
@@ -86,6 +97,7 @@
 <script src="../../../layuiadmin/layui/layui.js"></script>
 <!--form validation init-->
 <script src="../../../assets/base/js/jquery.min.js"></script>
+<script src="../../../assets/base/js/bootstrap.min.js"></script>
 <script src="../../../summernote/dist/summernote.min.js"></script>
 <script src="../../../tagsinput/jquery.tagsinput.min.js"></script>
 <script>

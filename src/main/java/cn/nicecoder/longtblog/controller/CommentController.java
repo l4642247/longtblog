@@ -76,7 +76,10 @@ public class CommentController {
     public List<CommentResult> tagPage(@RequestParam(value = "artId",required = false) Long artId,
                                        @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
                                        @RequestParam(value = "pageSize",defaultValue = "5") int pageSize){
-        return commentService.commentPage(artId, pageNumber, pageSize);
+        if(artId != null) {
+            return commentService.commentPage(true, artId, pageNumber, pageSize);
+        }
+        return commentService.commentPage(false,null, pageNumber, pageSize);
     }
 
 }
