@@ -123,7 +123,11 @@ public class ArticleController {
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Article detail(@PathVariable Long id){
-        return articleService.articleDetail(id);
+        Article article = articleService.articleDetail(id);
+        String content = article.getContent();
+        content.replaceAll("<pre>","<pre><code class='language-js'>");
+        content.replaceAll("</pre>","</code></pre>");
+        return article;
     }
 
     @RequestMapping(value = "/near/{id}", method = RequestMethod.GET)

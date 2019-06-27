@@ -24,10 +24,12 @@
         <div class="layui-card-body" pad15>
 
           <form class="layui-form" action="/article/create" method="post">
+            <input type="hidden" name="id" th:value="${article.id}" />
+
             <div class="layui-form-item">
               <label class="layui-form-label">标题</label>
               <div class="layui-input-block">
-                <input type="text" name="title"  placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+                <input type="text" name="title" th:value="${article.title}" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
               </div>
             </div>
 
@@ -41,7 +43,7 @@
             <div class="layui-form-item">
               <label class="layui-form-label">内容</label>
               <div class="layui-input-block">
-                <textarea th:utext="${article.content}" style="width: 400px; height: 100px;" class="summernote layui-textarea" name="content">写点什么吧...</textarea>
+                <textarea th:text="${article.content}" style="width: 400px; height: 100px;" class="summernote layui-textarea" name="content">写点什么吧...</textarea>
               </div>
             </div>
 
@@ -55,9 +57,9 @@
             <div class="layui-form-item">
               <label class="layui-form-label">目录</label>
               <div class="layui-input-block">
-                <select name="catalog" >
+                <select name="catalog">
                   <option value="">请选择</option>
-                  <option th:each="catalog:${catalogList}" th:value="${catalog.id}" th:text="${catalog.name}"></option>
+                  <option th:each="catalog:${catalogList}" th:value="${catalog.id}"  th:text="${catalog.name}" th:selected="${article.catalog != null && catalog.id == article.catalog.id}"></option>
                 </select>
               </div>
             </div>
@@ -65,10 +67,10 @@
             <div class="layui-form-item">
               <label class="layui-form-label">类型</label>
               <div class="layui-input-block">
-                <select name="type" lay-verify="required">
-                  <option value="0">日记</option>
-                  <option value="1">文章</option>
-                  <option value="2">关于我</option>
+                <select name="type" lay-verify="required" th:value="${article.type}">
+                  <option value="0" th:selected="${'0' == article.type}">日记</option>
+                  <option value="1" th:selected="${'1' == article.type}">文章</option>
+                  <option value="2" th:selected="${'2' == article.type}">关于我</option>
                 </select>
               </div>
             </div>

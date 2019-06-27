@@ -81,6 +81,10 @@ public class PageController {
         ModelAndView mv = new ModelAndView("info");
         Article article = articleService.articleDetail(id);
         mv.addObject("catalog",articleService.findCatalogById(article.getId()));
+        String content = new String(article.getContent());
+        content = content.replace("<pre>","<pre><code class='language-js'>");
+        content = content.replace("</pre>","</code></pre>");
+        article.setContent(content.getBytes());
         mv.addObject("article",article);
         String username = IPUtil.getIpAddress(request);
         mv.addObject("username",username);

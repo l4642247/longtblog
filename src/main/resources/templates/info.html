@@ -4,6 +4,8 @@
 <head th:replace="header::header"></head>
 <link href="../layuiadmin/layui/css/layui.css" rel="stylesheet">
 <script type="text/javascript" src="../layuiadmin/layui/layui.js"></script>
+<link href="../prism/prism.css" rel="stylesheet">
+<script type="text/javascript" src="../prism/prism.js"></script>
 <body>
 <header class="header-navigation" id="header">
   <nav>
@@ -64,7 +66,7 @@
         </div>
         <div class="tags"></div>
         <div class="news_about" th:text="${article.summary}"></div>
-        <div class="news_con" th:utext="${article.content}"> </div>
+        <div class="news_con news_content" th:utext="${article.content}"></div>
       </div>
       <div class="share">
         <p class="diggit"><a href="javascript:;" onclick="agreeInit()"> 很赞哦！ </a>(<b id="diggnum" th:text="${article.agree}">13</b>)</p>
