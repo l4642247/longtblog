@@ -39,17 +39,12 @@
       <ul>
       </ul>
     </div>
-<div class="cloud">
+    <div class="cloud">
       <h2>标签云</h2>
       <ul>
       </ul>
     </div>
-    <div class="guanzhu">
-      <h2>关注我 么么哒</h2>
-      <ul>
-        <img src="../assets/base/images/wx.jpg">
-      </ul>
-    </div>
+    <div th:replace="header::guanzhu"></div>
   </aside>
   <main class="r_box_list">
       <li th:each="article:${articles.content}">

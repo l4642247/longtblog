@@ -52,12 +52,7 @@
           <a href="#">一个都没有</a>
         </ul>
       </div>
-      <div class="guanzhu">
-        <h2>qq 扫一扫</h2>
-        <ul>
-          <img src="../assets/base/images/qq.png">
-        </ul>
-      </div>
+      <div th:replace="header::guanzhu"></div>
   </aside>
   <main class="r_box">
     <li th:each="article:${articles.content}">
