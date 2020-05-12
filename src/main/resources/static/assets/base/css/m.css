@@ -1,6 +1,14 @@
 @charset "utf-8";
-@media screen and (min-width: 1024px) and (max-width: 1199px) {
-header { width: 96%; margin: auto }
+@media screen and (min-width: 1024px) {
+.site-inner { max-width: 1140px; }
+.site-inner .content{
+ float: left;
+ width: 65%;
+}
+.sidebar{
+ float: right;
+ width: 30%;
+}
 }
 @media screen and (min-width: 960px) and (max-width: 1023px) {
 header { width: 96%; margin: auto }
@@ -9,6 +17,15 @@ nav { width: 96%; }
 #starlist li { padding-left: 20px }
 .picshowlist { display: none }
 .tuijian, .guanzhu { width: 270px; }
+.site-inner { max-width: 1140px; }
+.site-inner .content{
+ float: left;
+ width: 65%;
+}
+.sidebar{
+ float: right;
+ width: 30%;
+}
 }
 @media screen and (min-width: 768px) and (max-width: 959px) {
 header { width: 96%; margin: auto }
@@ -60,3 +77,6 @@ nav { width: 100%; position: relative }
 .r_box li i { float: none; margin: 0 auto 20px; width: 100%; max-height: initial }
 .newsview { padding: 0 15px; }
 }
+
+
+

@@ -4,97 +4,119 @@
 <head th:replace="header::header"></head>
 <body>
 <header class="header-navigation" id="header">
-  <nav><div class="logo"><a href="/">个人博客</a></div>
+  <nav><div class="logo"><a href="/">极简主义</a></div>
     <h2 id="mnavh"><span class="navicon"></span></h2>
     <ul id="starlist">
       <li><a href="index.html" id="selected">网站首页</a></li>
-      <!--<li><a href="share.html">我的相册</a></li>-->
-      <li><a href="list.html">我的日记</a></li>
-      <li><a href="about.html">关于我</a></li>
-      <li><a href="gbook.html">留言</a></li>
+      <li><a href="../gbook.html">恰饭时间</a></li>
+      <li><a href="../gbook.html">客官留言</a></li>
     </ul>
 </nav>
 </header>
 <article>
-  <aside class="l_box">
-      <div class="about_me" th:replace="header::aboutMe"></div>
-      <!--<div class="wdxc">
-        <h2>我的相册</h2>
-        <ul>
-          <li><a href="/infopic.html"><img src="../assets/base/images/7.jpg"></a></li>
-          <li><a href="/infopic.html"><img src="../assets/base/images/8.jpg"></a></li>
-          <li><a href="/infopic.html"><img src="../assets/base/images/9.jpg"></a></li>
-          <li><a href="/infopic.html"><img src="../assets/base/images/10.jpg"></a></li>
-          <li><a href="/infopic.html"><img src="../assets/base/images/11.jpg"></a></li>
-          <li><a href="/infopic.html"><img src="../assets/base/images/12.jpg"></a></li>
-        </ul>
-      </div>-->
-      <div class="search">
-        <form action="index.html" method="get" name="searchform" id="searchform">
-          <input name="title" id="title" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-          <input name="catalog" value="" type="hidden" th:value="${catalog}">
-          <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
+  <div class="site-inner">
+    <!--文章-->
+    <div class="content">
+      <div class="google-top"></div>
+
+      <!--文章模块START-->
+      <div class="article" th:each="article:${articles.content}">
+        <header>
+          <h2 class="entry-title"><a href="#" th:href="${'info/'+article.id}" th:text="${article.title}">
+            Trace by Sticker Mule 免費相片去背工具，線上全自動可自訂背景顏色</a></h2>
+        </header>
+        <div class="entry-content">
+          <img class="coverImg" th:src="${article.cover}" src="https://i1.wp.com/free.com.tw/blog/wp-content/uploads/2019/11/Screenshot-2019-11-15-13.49.png?resize=640%2C473&ssl=1">
+          <p th:text="${article.summary}">這幾年很流行線上去背工具，可以在上傳圖片後自動找出主體，再將背景部分去除，相較於以
+            往只能使用繪圖軟體手動編輯省下<a href="#"> 很多時間</a>，效果很好，不會輸給人工去背，這都要仰賴機器學習技
+            術，透過更多圖片資料讓程式學習，進而訓練出辨識能力更精確的線上工具，像是之前介紹過「remove.bg
+            超強大免費線上去背工具，上傳圖片五秒鐘自動移除
+            背景」就是非常強大的服務，此外，還有 PhotoScissors、Clipping Magic（已不是免費服務）都是類似的工具應用。</p>
+          <p><a th:href="${'info/'+article.id}" href="#" class="more-link"> 閱讀全文 »</a></p>
+        </div>
+        <footer></footer>
       </div>
-      <div class="fenlei">
-        <h2>文章分类</h2>
-        <ul>
-        </ul>
-      </div>
-      <div class="tuijian">
-        <h2>站长推荐</h2>
-        <ul>
-        </ul>
-      </div>
-      <div class="links">
-        <h2>友情链接</h2>
-        <ul>
-          <a href="#">一个都没有</a>
-        </ul>
-      </div>
-      <div th:replace="header::guanzhu"></div>
-  </aside>
-  <main class="r_box">
-    <li th:each="article:${articles.content}">
-      <i><a href="/"><img th:src="${article.cover}"></a></i>
-      <h3><a th:href="${'info/'+article.id}" th:text="${article.title}">你是什么人便会遇上什么人</a></h3>
-      <p th:text="${article.summary}">有时就为了一句狠话，像心头一口毒钉，永远麻痺着亲密感情交流。</p>
-    </li>
-  </main>
+      <!--文章模块END-->
+
+      <div id="infinite-handle"><button onclick="more()" class="layui-btn" >较旧的文章</button></div>
+    </div>
+    <div class="sidebar">
+      <section id="blog_subscription-4" class="widget jetpack_subscription_widget"><div class="widget-wrap"><h3 class="widgettitle widget-title">使用电子邮件订阅网站</h3>
+        <form action="#" method="post" accept-charset="utf-8">
+          <div id="subscribe-text"><p>输入你的电子邮件地址订阅网站新文章，使用电子邮件接受通知。</p>
+          </div>
+            <p id="subscribe-email">
+              <input type="email" name="email" required="required" class="required" value="" id="subscribe-field-blog_subscription-4" placeholder="电子邮件位置">
+            </p>
+            <p id="subscribe-submit">
+              <button type="submit" class="layui-btn"> 订阅更新 </button>
+            </p>
+          </form>
+        </div>
+      </section>
+      <!--成功！我們剛才已傳送訂閱確認電子郵件。請立即找出這封電子郵件，並按一下「啟用」以開始訂閱。-->
+      <section id="jetpack-search-filters-3" class="widget widget_search">
+        <div class="widget-wrap">
+          <div id="jetpack-search-filters-3-wrapper" class="">
+            <h3 class="widgettitle widget-title">站內搜索</h3>
+            <div class="jetpack-search-form">
+              <form class="search-form" method="get" action="https://free.com.tw/" role="search">
+                <input class="search-form-input" type="search" name="s" id="searchform-1" placeholder="搜索文章 …">
+                <input class="search-form-submit" type="submit" value="搜索">
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="text-125" class="widget widget_text"><div class="widget-wrap"><h3 class="widgettitle widget-title">精选主题</h3>
+        <div class="textwidget tuijian">
+        <ul><!--请求后台数据--></ul>
+        </div>
+      </div></section>
+    </div>
+  </div>
 </article>
+
 <footer th:replace="footer::footer"></footer>
 <a href="#" class="cd-top">Top</a>
 
 <script>
   $(function(){
-      initPage();
       catalogInit();
       top8();
   })
 
-  function initPage() {
-      var totalPage = [[${articles.totalPages}]];
-      var currentPage = [[${articles.number}]];
-      var size = [[${articles.size}]];
+  var currentPage = 1;
+  function more(){
+    var last = false;
+    $.ajax({
+      url: '/article/more',
+      method: 'get',
+      dataType:'json',
+      data:{
+        currentPage : currentPage
+      },
+      success: function(result){
+        last = result.last;
+        currentPage += 1;
+        //设置不可点击
+        if(last){
+          $("#infinite-handle button").css("display","none");
+        }
 
-      var nextPage = currentPage + 1;
-      var html = '<div class="pagelist"><a class="allpage"><b>'+totalPage+'</b></a>&nbsp;&nbsp;';
-      for (var i=0; i<totalPage; i++){
-          html += '<a href="#" ';
-          if(i == currentPage){
-            html += 'class="curPage">'+i+'</a>&nbsp;&nbsp;';
-          }else{
-              html += 'onclick="page('+i+','+size+')">'+i+'</a>&nbsp;&nbsp;';
-          }
+        var html = '';
+        $.each(result.content, function(i, val){
+          html += '<div class="article">'
+          html += '<header><h2 class="entry-title"><a href="info/'+val.id+'" >'+val.title+'</a></h2></header>'
+          html += '<div class="entry-content">'
+          html += '<img class="coverImg"  src="'+val.cover+'">'
+          html += '<p>'+val.summary+'</p>'
+          html += '<p><a href="info/'+val.id+'" class="more-link"> 閱讀全文 »</a></p>'
+          html += '</div><footer></footer></div>'
+        });
+        $("#infinite-handle").before(html);
       }
-      if(currentPage != totalPage-1) {
-          html += '<a href="#" onclick="page(' + nextPage + ',' + size + ')">下一页</a></div>';
-      }
-      $('main li:last-child').after(html);
-  }
-
-  function page(toPage, size){
-      location.href = 'index.html?currentPage='+toPage+'&pageSize='+size;
+    });
   }
 </script>
 </body>

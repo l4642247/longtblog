@@ -154,4 +154,17 @@ public class ArticleController {
         return mv;
     }
 
+
+    @RequestMapping(value = "/more", method = RequestMethod.GET)
+    @ResponseBody
+    public Page<Model> index(@RequestParam(value = "currentPage",defaultValue = "0") int pageNumber,
+                              @RequestParam(value = "pagesize",defaultValue = "5") int pageSize,
+                              @RequestParam(value = "title",required = false) String title,
+                              @RequestParam(value = "catalogId",required = false) Long catalogId,
+                              @RequestParam(value = "tag",required = false) String tag,
+                              @RequestParam(value = "status",required = false) String status){
+        Page<Model> articles =  articleService.articleSearch(pageNumber, pageSize, title, catalogId, tag, status, "1");
+        return articles;
+    }
+
 }

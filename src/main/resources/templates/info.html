@@ -2,118 +2,120 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header::header"></head>
-<link href="../layuiadmin/layui/css/layui.css" rel="stylesheet">
-<script type="text/javascript" src="../layuiadmin/layui/layui.js"></script>
-<link href="../prism/prism.css" rel="stylesheet">
 <script type="text/javascript" src="../prism/prism.js"></script>
+
 <body>
 <header class="header-navigation" id="header">
   <nav>
-    <div class="logo"><a href="/">个人博客</a></div>
+    <div class="logo"><a href="/">极简主义</a></div>
     <h2 id="mnavh"><span class="navicon"></span></h2>
     <ul id="starlist">
       <li><a href="/">网站首页</a></li>
-      <!--<li><a href="share.html">我的相册</a></li>-->
+      <!--<li><a href="share.html">我的相册</a></li>
       <li><a href="../list.html">我的日记</a></li>
-      <li><a href="../about.html">关于我</a></li>
-      <li><a href="../gbook.html">留言</a></li>
-      <li><a href="../info.html" id="selected">内容页</a></li>
+      <li><a href="../about.html">关于我</a></li>-->
+      <li><a href="../gbook.html">恰饭时间</a></li>
+      <li><a href="../gbook.html">客官留言</a></li>
+      <li><a href="../info.html" id="selected">正文</a></li>
     </ul>
   </nav>
 </header>
 <article>
-  <aside class="l_box">
-    <div class="search">
-      <form action="../index.html" method="get" name="searchform" id="searchform">
-        <input name="title" id="title" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-        <input name="Submit" class="input_submit" value="搜索" type="submit">
-      </form>
-    </div>
-    <div class="fenlei">
-      <h2>文章分类</h2>
-      <ul>
-      </ul>
-    </div>
-    <div class="tuijian">
-      <h2>点击排行</h2>
-      <ul>
-      </ul>
-    </div>
-    <div class="cloud">
-      <h2>标签云</h2>
-      <ul>
-      </ul>
-    </div>
-    <div th:replace="header::guanzhu"></div>
-  </aside>
-  <main>
-    <div class="infosbox">
-      <div class="newsview">
-        <h3 class="news_title" th:text="${article.title}">个人博客，属于我的小世界！</h3>
-        <div class="bloginfo">
-          <ul>
-            <li class="author">作者：<a href="/" th:text="${article.author}"></a></li>
-            <li class="lmname"><a th:href="${'../index.html?catalog='+catalog.id}" th:text="${catalog.name}"></a></li>
-           <!-- <input type="hidden" th:value="${article.catalog}" name="catalogId"/>-->
-            <li class="timer" th:text="${'时间：'+ #dates.format(article.createTime ,'yyyy年MM月dd日 HH:mm:ss')}"></li>
-            <li class="view" th:text="${article.click + '人已阅读'}"></li>
-          </ul>
+
+  <div class="site-inner">
+    <!--文章-->
+    <div class="content">
+      <div class="breadcrumb"><span class="breadcrumb-link-wrap"><a class="breadcrumb-link" href="https://free.com.tw/">
+        <span class="breadcrumb-link-text-wrap">首頁</span></a><meta></span> <span aria-label="breadcrumb separator">/</span>
+        <span class="breadcrumb-link-wrap"><a class="breadcrumb-link" th:href="@{'/index.html?catalogId='+${catalog.id}}">
+        <span class="breadcrumb-link-text-wrap" th:text="${catalog.name}">網路科技</span></a><meta></span>
+        <span aria-label="breadcrumb separator">/</span>
+        <span th:text="${article.title}">Apple Music Replay 為最常反覆回味的歌曲專輯建立年度回顧播放清單</span>
+      </div>
+
+      <div class="google-top"></div>
+      <div class="article">
+        <header>
+          <h2 class="entry-title" th:text="${article.title}"></h2>
+        </header>
+        <div class="entry-content">
+          <p th:utext="${article.content}"></p>
         </div>
-        <div class="tags"></div>
-        <div class="news_about" th:text="${article.summary}"></div>
-        <div class="news_con news_content" th:utext="${article.content}"></div>
+        <footer class="entry-footer">
+          <p class="entry-meta">
+          <span class="entry-categories">分类：<a th:href="@{'/index.html?catalogId='+${catalog.id}}" rel="category tag"
+               th:text="${catalog.name}"></a>
+          </span>
+          <span class="entry-tags">标签：</span>
+          </p>
+        </footer>
       </div>
-      <div class="share">
-        <p class="diggit"><a href="javascript:;" onclick="agreeInit()"> 很赞哦！ </a>(<b id="diggnum" th:text="${article.agree}">13</b>)</p>
-      </div>
-      <div class="nextinfo">
-        <p>上一篇：</p>
-        <p>下一篇：</p>
-      </div>
-      <div class="news_pl">
-        <h2>文章评论</h2>
-        <div class="gbko"> 
-          <!--<div class="fb">
-            <ul>
-              <p class="fbtime"><span>2018-07-24 08:52:48</span> 卜野</p>
-              <p class="fbinfo"></p>
-              <div class="ecomment"><span class="ecommentauthor">网友 家蚂蚁 的原文：</span>
-                <p class="ecommenttext">坚持哟!看你每天都有写，请继续加油，再接再厉哦</p>
-              </div>
-            </ul>
-          </div>-->
-          <div id="comment"></div>
 
-          <form action="/comment/create" method="post" class="layui-form">
-            <div id="plpost">
-              <div class="layui-form-item">
-                <p class="saying"><span><a href="#" id="commentNum"></a></span>来说两句吧...</p>
-                <input type="hidden" name="discussid" th:value="${article.id}">
-                <input type="hidden" name="type" th:value="1">
-              </div>
-              <div class="layui-form-item">
-                <!--<label class="layui-form-label">昵称:</label>-->
-                <input type="text" name="name" lay-verify="required" placeholder="*昵称" autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-item">
-                <input type="text" name="email" lay-verify="required|email" placeholder="*邮箱" autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-item">
-                <input type="text" name="website" placeholder="网站" autocomplete="on" class="layui-input">
-              </div>
-              <div class="layui-form-item">
-                <textarea id="content" lay-verify="pass" name="content" class="layui-textarea"></textarea>
-              </div>
+      <section class="author-box">
+        <img alt="Avatar for Pseric" title="Gravatar for Pseric" src="https://secure.gravatar.com/avatar/8b4ecff6e16758a6de1ce5e51cfa9e0d?s=96&amp;d=mm&amp;r=g" class="avatar avatar-96 photo jetpack-lazy-image jetpack-lazy-image--handled" height="96" width="96" srcset="https://secure.gravatar.com/avatar/8b4ecff6e16758a6de1ce5e51cfa9e0d?s=192&amp;d=mm&amp;r=g 2x" data-lazy-loaded="1"><noscript>
+        <img alt='Avatar for Pseric' title='Gravatar for Pseric' src='https://secure.gravatar.com/avatar/8b4ecff6e16758a6de1ce5e51cfa9e0d?s=96&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/8b4ecff6e16758a6de1ce5e51cfa9e0d?s=192&#038;d=mm&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>
+        <h4 class="author-box-title">关于
+          <span itemprop="name">dubai</span>
+        </h4>
+        <div class="author-box-content" itemprop="description">
+          <p>上海奋斗的上班族，希望通过建站，更新来记录自己的业余生活。如果你也是一个喜欢折腾的二逼青年，欢迎一起来探讨！</p>
+        </div>
+      </section>
+    </div>
 
-              <p>
-                <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-              </p>
+
+
+    <!--右边开始-->
+    <div class="sidebar">
+      <section id="blog_subscription-4" class="widget jetpack_subscription_widget"><div class="widget-wrap"><h3 class="widgettitle widget-title">使用電子郵件訂閱網站</h3>
+        <form action="#" method="post" accept-charset="utf-8">
+          <div id="subscribe-text"><p>輸入你的電子郵件地址訂閱網站新文章，使用電子郵件接收通知。</p>
+          </div>
+          <p id="subscribe-email">
+            <input type="email" name="email" required="required" class="required" value="" id="subscribe-field-blog_subscription-4" placeholder="電子郵件位址">
+          </p>
+          <p id="subscribe-submit">
+            <button type="submit" class="layui-btn"> 訂閱更新 </button>
+          </p>
+        </form>
+      </div>
+      </section>
+      <!--成功！我們剛才已傳送訂閱確認電子郵件。請立即找出這封電子郵件，並按一下「啟用」以開始訂閱。-->
+      <section id="jetpack-search-filters-3" class="widget widget_search">
+        <div class="widget-wrap">
+          <div id="jetpack-search-filters-3-wrapper" class="">
+            <h3 class="widgettitle widget-title">站內搜尋</h3>
+            <div class="jetpack-search-form">
+              <form class="search-form" method="get" action="https://free.com.tw/" role="search">
+                <input class="search-form-input" type="search" name="s" id="searchform-1" placeholder="搜尋免費資源 …">
+                <input class="search-form-submit" type="submit" value="搜尋">
+              </form>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="widget widget_search">
+        <div class="widget-wrap">
+          <div id="jetpack-search-filters-3-wrapper" class="cloud">
+            <h3 class="widgettitle widget-title">标签云</h3>
+            <ul>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="text-125" class="widget widget_text">
+        <div class="widget-wrap"><h3 class="widgettitle widget-title">精選主題</h3>
+          <div class="textwidget tuijian">
+            <ul><!--请求后台数据--></ul>
+          </div>
+        </div>
+      </section>
     </div>
-  </main>
+  </div>
+
+
 </article>
 <footer th:replace="footer::footer"></footer>
 <a href="#" class="cd-top">Top</a>
@@ -227,11 +229,11 @@
           method: 'get',
           dataType:'json',
           success: function(result){
-              var html = '';
+              var html = '标签：';
               $.each(result, function(i, val){
-                  html += '<a href="/index.html?tag=' + val.id + '" target="_blank">'+val.name+'</a> &nbsp;';
+                  html += '<a href="/index.html?tag=' + val.id + '" target="_blank">'+val.name+'</a>,';
               });
-              $(".tags").html(html);
+              $(".entry-tags").html(html.substring(0, html.length-1));
           }
       });
   }
